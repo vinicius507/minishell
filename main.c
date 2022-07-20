@@ -1,7 +1,5 @@
+#include <libft.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
 #include <readline/readline.h>
 
 int main(void)
@@ -11,16 +9,16 @@ int main(void)
 	size_t	string_start;
 
 	result = readline("prompt: ");
-	if (result != NULL && strncmp(result, "echo", 4) == 0)
+	if (result != NULL && ft_strncmp(result, "echo", 4) == 0)
 	{
 		print_line_break = 1;
-		if (isspace(result[4]))
+		if (ft_isspace(result[4]))
 		{
 			string_start = 5;
-			if (strncmp(result + 5, "-n", 2) == 0 && (isspace(result[7]) || result[7] == '\0'))
+			if (ft_strncmp(result + 5, "-n", 2) == 0 && (ft_isspace(result[7]) || result[7] == '\0'))
 			{
 				print_line_break = 0;
-				string_start += 3;
+				string_start += 2 + (result[7] != '\0');
 			}
 			printf("%s", result + string_start);
 		}
