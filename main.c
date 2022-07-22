@@ -16,6 +16,8 @@ int main(void)
 			printf("exit\n");
 			exit(0);
 		}
+		if (result != NULL && ft_strcmp(result, "pwd") == 0)
+			printf("%s\n", getenv("PWD"));
 		if (result != NULL && ft_strncmp(result, "echo", 4) == 0)
 		{
 			print_line_break = 1;
