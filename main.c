@@ -8,24 +8,32 @@ int main(void)
 	char 	print_line_break;
 	size_t	string_start;
 
-	result = readline("prompt: ");
-	if (result != NULL && ft_strncmp(result, "echo", 4) == 0)
+	while(1)
 	{
-		print_line_break = 1;
-		if (ft_isspace(result[4]))
+		result = readline("prompt: ");
+		if (result != NULL && ft_strcmp(result, "exit") == 0)
 		{
-			string_start = 5;
-			if (ft_strncmp(result + 5, "-n", 2) == 0 && (ft_isspace(result[7]) || result[7] == '\0'))
-			{
-				print_line_break = 0;
-				string_start += 2 + (result[7] != '\0');
-			}
-			printf("%s", result + string_start);
+			printf("exit\n");
+			exit(0);
 		}
-		if (print_line_break == 1)
-			printf("\n");
+		if (result != NULL && ft_strncmp(result, "echo", 4) == 0)
+		{
+			print_line_break = 1;
+			if (ft_isspace(result[4]))
+			{
+				string_start = 5;
+				if (ft_strncmp(result + 5, "-n", 2) == 0 && (ft_isspace(result[7]) || result[7] == '\0'))
+				{
+					print_line_break = 0;
+					string_start += 2 + (result[7] != '\0');
+				}
+				printf("%s", result + string_start);
+			}
+			if (print_line_break == 1)
+				printf("\n");
+		}
+		if (result != NULL)
+			free(result);
 	}
-	if (result != NULL)
-		free(result);
 	return (0);
 }
