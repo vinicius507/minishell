@@ -14,6 +14,7 @@ int main(void)
 		if (result != NULL && ft_strcmp(result, "exit") == 0)
 		{
 			printf("exit\n");
+			free(result);
 			exit(0);
 		}
 		if (result != NULL && ft_strcmp(result, "pwd") == 0)
