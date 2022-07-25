@@ -11,15 +11,16 @@ int main(void)
 	while(1)
 	{
 		result = readline("prompt: ");
-		if (result != NULL && ft_strcmp(result, "exit") == 0)
+		if (result == NULL || ft_strcmp(result, "exit") == 0)
 		{
 			printf("exit\n");
-			free(result);
+			if (result != NULL)
+				free(result);
 			exit(0);
 		}
-		if (result != NULL && ft_strcmp(result, "pwd") == 0)
+		if (ft_strcmp(result, "pwd") == 0)
 			printf("%s\n", getenv("PWD"));
-		if (result != NULL && ft_strncmp(result, "echo", 4) == 0)
+		if (ft_strncmp(result, "echo", 4) == 0)
 		{
 			print_line_break = 1;
 			if (ft_isspace(result[4]))
@@ -35,8 +36,7 @@ int main(void)
 			if (print_line_break == 1)
 				printf("\n");
 		}
-		if (result != NULL)
-			free(result);
+		free(result);
 	}
 	return (0);
 }
