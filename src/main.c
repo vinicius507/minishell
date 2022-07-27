@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:22:43 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/07/26 22:20:55 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:24:44 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_tokens(char **tokens)
 	free(tokens);
 }
 
-int main(void)
+int main(int argc, char **argv, char **envp)
 {
 	char 	*input;
 	char	**tokens;
@@ -46,7 +46,11 @@ int main(void)
 			pwd();
 		if (ft_strncmp(tokens[0], "echo", 4) == 0)
 			echo(tokens + 1);
+		if (ft_strcmp(tokens[0], "env") == 0)
+			env(envp);
 		free_tokens(tokens);
 	}
+	(void)argc;
+	(void)argv;
 	return (0);
 }

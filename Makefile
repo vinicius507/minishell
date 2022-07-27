@@ -8,7 +8,7 @@ LIBFT = ./libft/libft.a
 RM = rm -rf
 
 vpath %.c src src/builtins
-SRCS = main.c exit.c pwd.c lexer.c echo.c
+SRCS = main.c exit.c pwd.c lexer.c echo.c env.c
 
 OBJ_DIR = ./objs
 OBJECTS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))

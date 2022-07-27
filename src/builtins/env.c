@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/25 15:21:28 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/07/27 15:12:34 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/07/27 15:08:01 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/07/27 15:15:57 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include <stdio.h>
+#include <builtins/builtins.h>
 
-void	shell_exit(void);
-
-void	pwd(void);
-
-void	echo(char **args);
-
-void 	env(char **envp);
-
-#endif
+void 	env(char **envp)
+{
+	while (*envp != NULL)
+	{
+		printf("%s\n", *envp);
+		envp++;
+	}
+}
