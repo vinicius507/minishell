@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:22:43 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/07/27 15:24:44 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:32:00 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	free_tokens(char **tokens)
 {
 	int i;
 
+	if (tokens == NULL)
+		return ;
 	i = 0;
 	while (tokens[i] != NULL)
 		free(tokens[i++]);
@@ -37,7 +39,7 @@ int main(int argc, char **argv, char **envp)
 		tokens = lex(input);
 		if (input != NULL)
 			free(input);
-		if (tokens[0] == NULL || ft_strcmp(tokens[0], "exit") == 0)
+		if (tokens == NULL || ft_strcmp(tokens[0], "exit") == 0)
 		{
 			free_tokens(tokens);
 			shell_exit();
