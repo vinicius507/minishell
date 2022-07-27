@@ -2,24 +2,36 @@ NAME = minishell
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-INCLUDES = -I./libft/includes
+INCLUDES = -I./libft/includes -I./src
 LIBS = -L./libft -lft -lreadline
 LIBFT = ./libft/libft.a
-SRCS = main.c
 RM = rm -rf
+
+vpath %.c src src/builtins
+SRCS = main.c exit.c pwd.c lexer.c echo.c
+
+OBJ_DIR = ./objs
+OBJECTS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
 
 all: $(NAME) 
 
-$(NAME): $(LIBFT)
-	$(CC) $(CFLAGS) $(INCLUDES) main.c $(LIBS) -o $@
+$(NAME): $(LIBFT) $(OBJECTS)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJECTS) $(LIBS) -o $@
 
 $(LIBFT):
 	make -C ./libft/
 
+$(OBJ_DIR)/%.o: %.c 
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
 clean:
-	echo "Not implemented"
+	$(RM) $(OBJ_DIR)
+	make clean -C ./libft
 
 fclean:
+	$(RM) $(OBJ_DIR)
 	$(RM) $(NAME)
+	make fclean -C ./libft
 
 re: fclean all
