@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:22:43 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/07/27 15:32:00 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:33:10 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int main(int argc, char **argv, char **envp)
 		}
 		if (ft_strcmp(tokens[0], "pwd") == 0)
 			pwd();
-		if (ft_strncmp(tokens[0], "echo", 4) == 0)
+		if (ft_strcmp(tokens[0], "echo") == 0)
 			echo(tokens + 1);
 		if (ft_strcmp(tokens[0], "env") == 0)
 			env(envp);
