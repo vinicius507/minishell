@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   unset_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/25 15:21:28 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 16:35:21 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/02 16:24:48 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/02 16:38:33 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include <env/env.h>
+#include <minishell.h>
 
-# include <minishell.h>
+void	unset_env(const char *key)
+{
+	t_env	*env;
 
-typedef void	t_builtin (char **args);
-
-t_builtin	*get_builtin(const char *cmd);
-
-void		shell_exit(char **args);
-
-void		pwd(char **args);
-
-void		echo(char **args);
-
-void		env(char **args);
-
-void		export(char **args);
-
-void		unset(char **args);
-
-#endif
+	env = get_env(key);
+	if (env == NULL)
+		return ;
+	if (env->prev != NULL)
+		env->prev->next = env->next;
+	else
+		g_sh.env = env->next;
+	if (env->next != NULL)
+		env->next->prev = env->prev;
+	env->prev = NULL;
+	env->next = NULL;
+	free((void *)env->key);
+	free((void *)env->value);
+	free(env);
+}

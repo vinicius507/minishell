@@ -6,20 +6,21 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:39:40 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 12:59:03 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 16:30:23 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <env/env.h>
 #include <minishell.h>
 
-static	t_env	*new_env(const char *key, const char*value)
+static	t_env	*new_env(const char *key, const char *value, t_env *prev)
 {
 	t_env	*env;
 
 	env = ft_calloc(1, sizeof(t_env));
 	env->key = key;
 	env->value = value;
+	env->prev = prev;
 	return (env);
 }
 
@@ -38,7 +39,7 @@ t_env	*set_env(const char *key, const char*value)
 
 	if (g_sh.env == NULL)
 	{
-		g_sh.env = new_env(key, value);
+		g_sh.env = new_env(key, value, NULL);
 		return (g_sh.env);
 	}
 	env = get_env(key);
@@ -47,6 +48,6 @@ t_env	*set_env(const char *key, const char*value)
 	env = g_sh.env;
 	while (env->next != NULL)
 		env = env->next;
-	env->next = new_env(key, value);
+	env->next = new_env(key, value, env);
 	return (env->next);
 }
