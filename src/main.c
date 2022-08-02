@@ -6,12 +6,13 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:22:43 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 13:09:36 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 17:21:00 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <stdio.h>
+#include <readline/history.h>
 #include <readline/readline.h>
 #include <builtins/builtins.h>
 #include <minishell.h>
@@ -38,7 +39,10 @@ char	**prompt(void)
 	input = readline("prompt: ");
 	tokens = lex(input);
 	if (input != NULL)
+	{
+		add_history(input);
 		free(input);
+	}
 	return (tokens);
 }
 
