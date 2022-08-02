@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_builtin.c                                      :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/02 12:11:42 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 18:35:27 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/02 17:22:42 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/02 18:37:00 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins/builtins.h>
 
-t_builtin	*get_builtin(const char *cmd)
+void	cd(char **args)
 {
-	if ((ft_strcmp(cmd, "exit") == 0))
-		return (shell_exit);
-	if ((ft_strcmp(cmd, "pwd") == 0))
-		return (pwd);
-	if ((ft_strcmp(cmd, "echo") == 0))
-		return (echo);
-	if ((ft_strcmp(cmd, "env") == 0))
-		return (env);
-	if ((ft_strcmp(cmd, "export") == 0))
-		return (export);
-	if ((ft_strcmp(cmd, "unset") == 0))
-		return (unset);
-	if ((ft_strcmp(cmd, "cd") == 0))
-		return (cd);
-	return (NULL);
+	const char	*path;
+	const char	*pwd;
+
+	pwd = get_env("PWD")->value;
+	if (*args == NULL)
+		path = get_env("HOME")->value;
+	else
+		path = *args;
+	if ((chdir(path) == -1))
+	{ 
+		perror("error");
+		return ;
+	}
+	set_env("OLDPWD", pwd);
+	set_env("PWD", path);
 }
