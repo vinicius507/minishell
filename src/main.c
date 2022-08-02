@@ -56,11 +56,13 @@ int	main(int argc, char **argv, char **envp)
 		if (tokens == NULL)
 			shell_exit(NULL);
 		else
+		{
 			builtin = get_builtin(tokens[0]);
-		if (builtin != NULL)
-			builtin(tokens + 1);
-		else if (tokens != NULL && *tokens != NULL)
-			printf("%s: %s: command not found\n", argv[0], tokens[0]);
+			if (builtin != NULL)
+				builtin(tokens + 1);
+			else if (*tokens != NULL)
+				printf("%s: %s: command not found\n", argv[0], tokens[0]);
+		}
 		free_tokens(tokens);
 	}
 	free_env();
