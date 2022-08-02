@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/26 20:39:22 by jefernan          #+#    #+#             */
-/*   Updated: 2022/08/02 10:38:26 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/02 11:04:23 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/02 11:05:15 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <libft.h>
+#include <env/env.h>
 
-# include <env/env.h>
+t_env	*get_env(const char *key)
+{
+	t_env	*env;
 
-char	**lex(char *input);
-
-#endif
+	env = g_env;
+	while (env != NULL && (ft_strcmp(key, env->key) != 0))
+		env = env->next;
+	return (env);
+}
