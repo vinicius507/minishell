@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:08:01 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 11:17:31 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 11:49:02 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <env/env.h>
 #include <builtins/builtins.h>
 
-void 	env(void)
+void	env(void)
 {
 	t_env	*env;
 

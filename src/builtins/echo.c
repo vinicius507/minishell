@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:04:15 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/07/26 22:08:08 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 11:49:31 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*join(char **args)
 	char	*left;
 	char	*temp;
 	char	**right;
-	
+
 	if (args[0] == NULL)
 		return (ft_strdup(""));
 	left = ft_strdup(args[0]);

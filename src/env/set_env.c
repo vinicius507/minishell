@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:39:40 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 11:28:39 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 11:48:30 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_env	*set_env(const char *key, const char*value)
 	t_env	*env;
 
 	if (g_env == NULL)
-	{ 
+	{
 		g_env = new_env(key, value);
 		return (g_env);
 	}
