@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 20:39:22 by jefernan          #+#    #+#             */
-/*   Updated: 2022/08/02 12:49:37 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 18:44:09 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ typedef struct s_shell
 extern t_shell	g_sh;
 
 char	**lex(char *input);
+
+char	**prompt(void);
 
 #endif

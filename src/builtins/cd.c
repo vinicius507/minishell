@@ -6,18 +6,26 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 17:22:42 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 18:37:00 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 19:13:04 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins/builtins.h>
 
+static void	update_pwd_envs(void)
+{
+	const char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	set_env("OLDPWD", get_env("PWD")->value);
+	set_env("PWD", pwd);
+	free((char *)pwd);
+}
+
 void	cd(char **args)
 {
 	const char	*path;
-	const char	*pwd;
 
-	pwd = get_env("PWD")->value;
 	if (*args == NULL)
 		path = get_env("HOME")->value;
 	else
@@ -27,6 +35,5 @@ void	cd(char **args)
 		perror("error");
 		return ;
 	}
-	set_env("OLDPWD", pwd);
-	set_env("PWD", path);
+	update_pwd_envs();
 }

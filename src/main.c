@@ -6,16 +6,12 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:22:43 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 17:21:00 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 18:54:31 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <stdio.h>
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <builtins/builtins.h>
 #include <minishell.h>
+#include <builtins/builtins.h>
 
 t_shell	g_sh;
 
@@ -29,21 +25,6 @@ void	free_tokens(char **tokens)
 	while (tokens[i] != NULL)
 		free(tokens[i++]);
 	free(tokens);
-}
-
-char	**prompt(void)
-{
-	char	*input;
-	char	**tokens;
-
-	input = readline("prompt: ");
-	tokens = lex(input);
-	if (input != NULL)
-	{
-		add_history(input);
-		free(input);
-	}
-	return (tokens);
 }
 
 int	main(int argc, char **argv, char **envp)
