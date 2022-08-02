@@ -6,12 +6,12 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:23:33 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 11:49:12 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:52:20 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <env/env.h>
+#include <builtins/builtins.h>
 
 void	export(char **args)
 {

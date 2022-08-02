@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:22:43 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 11:32:55 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 13:09:36 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 #include <builtins/builtins.h>
 #include <minishell.h>
 
-t_env	*g_env = NULL;
+t_shell	g_sh;
 
 void	free_tokens(char **tokens)
 {
-	int i;
+	int	i;
 
 	if (tokens == NULL)
 		return ;
@@ -30,35 +30,40 @@ void	free_tokens(char **tokens)
 	free(tokens);
 }
 
-int main(int argc, char **argv, char **envp)
+char	**prompt(void)
 {
-	char 	*input;
+	char	*input;
 	char	**tokens;
 
+	input = readline("prompt: ");
+	tokens = lex(input);
+	if (input != NULL)
+		free(input);
+	return (tokens);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char		**tokens;
+	t_builtin	*builtin;
+
+	g_sh.loop = 1;
+	builtin = NULL;
 	setup_env(envp);
-	while(1)
+	while (g_sh.loop == 1)
 	{
-		input = readline("prompt: ");
-		tokens = lex(input);
-		if (input != NULL)
-			free(input);
-		if (tokens == NULL || ft_strcmp(tokens[0], "exit") == 0)
-		{
-			free_env();
-			free_tokens(tokens);
-			shell_exit();
-		}
-		if (ft_strcmp(tokens[0], "pwd") == 0)
-			pwd();
-		if (ft_strcmp(tokens[0], "echo") == 0)
-			echo(tokens + 1);
-		if (ft_strcmp(tokens[0], "env") == 0)
-			env();
-		if (ft_strcmp(tokens[0], "export") == 0)
-			export(tokens + 1);
+		tokens = prompt();
+		if (tokens == NULL)
+			shell_exit(NULL);
+		else
+			builtin = get_builtin(tokens[0]);
+		if (builtin != NULL)
+			builtin(tokens + 1);
+		else if (tokens != NULL && *tokens != NULL)
+			printf("%s: %s: command not found\n", argv[0], tokens[0]);
 		free_tokens(tokens);
 	}
+	free_env();
 	(void)argc;
-	(void)argv;
 	return (0);
 }
