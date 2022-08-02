@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:37:24 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 11:10:40 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:59:41 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ typedef struct s_env
 	const char		*value;
 	struct s_env	*next;
 }	t_env;
-
-extern t_env	*g_env;
 
 t_env	*set_env(const char *key, const char*value);
 

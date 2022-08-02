@@ -8,7 +8,8 @@ LIBFT = ./libft/libft.a
 RM = rm -rf
 
 vpath %.c src src/builtins src/env
-SRCS = main.c exit.c pwd.c lexer.c echo.c env.c set_env.c setup_env.c get_env.c free_env.c export.c
+SRCS = main.c exit.c pwd.c lexer.c echo.c env.c set_env.c \
+	setup_env.c get_env.c free_env.c export.c get_builtin.c
 
 OBJ_DIR = ./objs
 OBJECTS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
