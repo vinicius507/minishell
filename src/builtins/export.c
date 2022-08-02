@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/25 15:21:28 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 11:31:44 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/02 11:23:33 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/02 11:34:11 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include <libft.h>
+#include <env/env.h>
 
-void	shell_exit(void);
+void	export(char **args)
+{
+	const char	*key;
+	const char	*value;
+	const char	*equal_sign;
 
-void	pwd(void);
-
-void	echo(char **args);
-
-void 	env(void);
-
-void	export(char **args);
-
-#endif
+	while (*args != NULL)
+	{
+		equal_sign = ft_strchr(*args, '=');
+		if (equal_sign == NULL || equal_sign == *args)
+		{
+			args++;
+			continue ;
+		}
+		key = ft_substr(*args, 0, equal_sign - *args);
+		value = ft_strdup(equal_sign + 1);
+		set_env(key, value);
+		args++;
+	}
+}

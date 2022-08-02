@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:39:40 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 11:12:23 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 11:28:39 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static	t_env	*new_env(const char *key, const char*value)
 static	t_env	*update_env(t_env	*env, const char *value)
 {
 	free((void *)env->value);
-	env->value = ft_strdup(value);
+	env->value = value;
 	return (env);
 }
 

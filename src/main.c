@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:22:43 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 11:18:04 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 11:32:55 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int main(int argc, char **argv, char **envp)
 			echo(tokens + 1);
 		if (ft_strcmp(tokens[0], "env") == 0)
 			env();
+		if (ft_strcmp(tokens[0], "export") == 0)
+			export(tokens + 1);
 		free_tokens(tokens);
 	}
 	(void)argc;
