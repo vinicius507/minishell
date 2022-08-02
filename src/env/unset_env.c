@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:24:48 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 16:35:12 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 16:38:33 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	unset_env(const char *key)
 		return ;
 	if (env->prev != NULL)
 		env->prev->next = env->next;
+	else
+		g_sh.env = env->next;
 	if (env->next != NULL)
 		env->next->prev = env->prev;
 	env->prev = NULL;
