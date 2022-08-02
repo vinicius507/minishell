@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:39:40 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 16:30:23 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 18:16:43 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,16 @@ static	t_env	*new_env(const char *key, const char *value, t_env *prev)
 	t_env	*env;
 
 	env = ft_calloc(1, sizeof(t_env));
-	env->key = key;
-	env->value = value;
+	env->key = ft_strdup(key);
+	env->value = ft_strdup(value);
 	env->prev = prev;
 	return (env);
 }
 
-static	t_env	*update_env(t_env	*env, const char *key, const char *value)
+static	t_env	*update_env(t_env	*env, const char *value)
 {
-	free((void *)env->key);
 	free((void *)env->value);
-	env->key = key;
-	env->value = value;
+	env->value = ft_strdup(value);
 	return (env);
 }
 
@@ -44,7 +42,7 @@ t_env	*set_env(const char *key, const char*value)
 	}
 	env = get_env(key);
 	if (env != NULL)
-		return (update_env(env, key, value));
+		return (update_env(env, value));
 	env = g_sh.env;
 	while (env->next != NULL)
 		env = env->next;

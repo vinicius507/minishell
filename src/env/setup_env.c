@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:47:03 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 12:51:41 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 18:17:01 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	setup_env(char **envp)
 		key = ft_substr(*envp, 0, equal_sign - *envp);
 		value = ft_strdup(equal_sign + 1);
 		set_env(key, value);
+		free((void *)key);
+		free((void *)value);
 		envp++;
 	}
 }
