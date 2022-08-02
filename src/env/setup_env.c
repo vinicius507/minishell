@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   setup_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/26 20:39:22 by jefernan          #+#    #+#             */
-/*   Updated: 2022/08/02 10:38:26 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/02 10:47:03 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/02 10:58:36 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <libft.h>
+#include <stdlib.h>
+#include <env/env.h>
 
-# include <env/env.h>
+void	setup_env(char **envp)
+{
+	const char	*key;
+	const char	*value;
+	const char	*equal_sign;
 
-char	**lex(char *input);
-
-#endif
+	while (*envp != NULL)
+	{
+		equal_sign = ft_strchr(*envp, '=');
+		key = ft_substr(*envp, 0, equal_sign - *envp);
+		value = ft_strdup(equal_sign + 1);
+		set_env(key, value);
+		envp++;
+	}
+}
