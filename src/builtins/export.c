@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/26 20:39:22 by jefernan          #+#    #+#             */
-/*   Updated: 2022/08/02 10:38:26 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/02 11:23:33 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/02 11:34:11 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <libft.h>
+#include <env/env.h>
 
-# include <env/env.h>
+void	export(char **args)
+{
+	const char	*key;
+	const char	*value;
+	const char	*equal_sign;
 
-char	**lex(char *input);
-
-#endif
+	while (*args != NULL)
+	{
+		equal_sign = ft_strchr(*args, '=');
+		if (equal_sign == NULL || equal_sign == *args)
+		{
+			args++;
+			continue ;
+		}
+		key = ft_substr(*args, 0, equal_sign - *args);
+		value = ft_strdup(equal_sign + 1);
+		set_env(key, value);
+		args++;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:22:43 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/07/27 15:33:10 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/02 11:32:55 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <readline/readline.h>
 #include <builtins/builtins.h>
 #include <minishell.h>
+
+t_env	*g_env = NULL;
 
 void	free_tokens(char **tokens)
 {
@@ -33,6 +35,7 @@ int main(int argc, char **argv, char **envp)
 	char 	*input;
 	char	**tokens;
 
+	setup_env(envp);
 	while(1)
 	{
 		input = readline("prompt: ");
@@ -41,6 +44,7 @@ int main(int argc, char **argv, char **envp)
 			free(input);
 		if (tokens == NULL || ft_strcmp(tokens[0], "exit") == 0)
 		{
+			free_env();
 			free_tokens(tokens);
 			shell_exit();
 		}
@@ -49,7 +53,9 @@ int main(int argc, char **argv, char **envp)
 		if (ft_strcmp(tokens[0], "echo") == 0)
 			echo(tokens + 1);
 		if (ft_strcmp(tokens[0], "env") == 0)
-			env(envp);
+			env();
+		if (ft_strcmp(tokens[0], "export") == 0)
+			export(tokens + 1);
 		free_tokens(tokens);
 	}
 	(void)argc;
