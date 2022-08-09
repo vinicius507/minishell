@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jefernan <jefernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 16:01:23 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/06 16:20:21 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/10 01:48:35 by jefernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,40 @@ void	execute(char **tokens)
 		}
 		free_process_env(process_env);
 	}
+}
+
+char	*find_bin_path(char *token)
+{
+	char	**temp;
+	char	*path;
+	char 	*bin_path;
+	int		i;
+
+	i = 0;
+	path = getenv("PATH");
+	if (path == NULL)
+		perror("minishell");
+	temp = ft_split(path, ':');
+	while (temp)
+	{
+		bin_path = ft_strjoin(temp[i], token);
+		if (access(bin_path, F_OK) == 0)
+			return (temp[i]);	
+		free(bin_path);
+		i++;
+	}
+	free_process_env(temp);
+	return (NULL);
+}
+
+void	free_process_env(char **envp)
+{
+	int	i;
+
+	if (envp == NULL)
+		return ;
+	i = 0;
+	while (envp[i] != NULL)
+		free(envp[i++]);
+	free(envp);
 }
