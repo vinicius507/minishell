@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_string_array.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/26 20:39:22 by jefernan          #+#    #+#             */
-/*   Updated: 2022/08/10 14:23:59 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/10 14:33:21 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/10 14:37:23 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <libft.h>
 
-# include <libft.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <env/env.h>
-
-typedef struct s_shell
+void	ft_free_string_array(char **str_arr)
 {
-	char	loop;
-	t_env	*env;
-}	t_shell;
+	size_t	offset;
 
-extern t_shell	g_sh;
-
-char	**lex(char *input);
-
-char	**prompt(void);
-
-void	execute(char **tokens);
-
-#endif
+	if (str_arr == NULL)
+		return ;
+	offset = 0;
+	while (str_arr[offset] != NULL)
+		free(str_arr[offset++]);
+	free(str_arr);
+}

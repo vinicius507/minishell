@@ -3,14 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jefernan <jefernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 16:01:23 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/10 01:48:35 by jefernan         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:56:42 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/wait.h>
 #include <minishell.h>
+
+static char	*find_bin_path(char *cmd)
+{
+	char	**directories;
+	t_env	*path;
+	char 	*bin_path;
+	int		i;
+
+	if ((access(cmd, F_OK) == 0))
+		return (ft_strdup(cmd));
+	path = get_env("PATH");
+	if (path == NULL)
+		return (NULL);
+	i = 0;
+	directories = ft_split(path->value, ':');
+	while (directories[i] != NULL)
+	{
+		ft_asprintf(&bin_path, "%s/%s", directories[i], cmd);
+		if ((access(bin_path, F_OK) == 0))
+			break ;
+		free(bin_path);
+		bin_path = NULL;
+		i++;
+	}
+	ft_free_string_array(directories);
+	return (bin_path);
+}
+
+static char	**process_env(void)
+{
+	t_env	*env;
+	char	**envp;
+	size_t	counter;
+	size_t	envp_len;
+
+	envp_len = 0;
+	env = g_sh.env;
+	while (env != NULL)
+	{
+		envp_len++;
+		env = env->next;
+	}
+	envp = ft_calloc(envp_len + 1, sizeof(char *));
+	counter = 0;
+	env = g_sh.env;
+	while (counter < envp_len)
+	{
+		ft_asprintf(&(envp[counter]), "%s=%s", env->key, env->value);
+		env = env->next;
+		counter++;
+	}
+	return (envp);
+}
 
 void	execute(char **tokens)
 {
@@ -38,42 +92,6 @@ void	execute(char **tokens)
 			if (waitpid(pid, NULL, 0) == -1)
 				perror("minishell");
 		}
-		free_process_env(process_env);
+		ft_free_string_array(envp);
 	}
-}
-
-char	*find_bin_path(char *token)
-{
-	char	**temp;
-	char	*path;
-	char 	*bin_path;
-	int		i;
-
-	i = 0;
-	path = getenv("PATH");
-	if (path == NULL)
-		perror("minishell");
-	temp = ft_split(path, ':');
-	while (temp)
-	{
-		bin_path = ft_strjoin(temp[i], token);
-		if (access(bin_path, F_OK) == 0)
-			return (temp[i]);	
-		free(bin_path);
-		i++;
-	}
-	free_process_env(temp);
-	return (NULL);
-}
-
-void	free_process_env(char **envp)
-{
-	int	i;
-
-	if (envp == NULL)
-		return ;
-	i = 0;
-	while (envp[i] != NULL)
-		free(envp[i++]);
-	free(envp);
 }
