@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 16:01:23 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/10 14:56:42 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:03:39 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*find_bin_path(char *cmd)
 {
 	char	**directories;
 	t_env	*path;
-	char 	*bin_path;
+	char	*bin_path;
 	int		i;
 
 	if ((access(cmd, F_OK) == 0))
@@ -87,11 +87,8 @@ void	execute(char **tokens)
 			perror("minishell");
 			exit(1);
 		}
-		else
-		{
-			if (waitpid(pid, NULL, 0) == -1)
-				perror("minishell");
-		}
+		else if (waitpid(pid, NULL, 0) == -1)
+			perror("minishell");
 		ft_free_string_array(envp);
 	}
 }

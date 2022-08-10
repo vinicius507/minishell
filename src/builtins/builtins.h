@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:21:28 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 18:35:38 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:03:55 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void		export(char **args);
 
 void		unset(char **args);
 
-void	cd(char **args);
+void		cd(char **args);
 
 #endif

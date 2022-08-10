@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 17:22:42 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 19:13:04 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:04:31 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	cd(char **args)
 	else
 		path = *args;
 	if ((chdir(path) == -1))
-	{ 
+	{
 		perror("error");
 		return ;
 	}
