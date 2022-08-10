@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 21:02:26 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/07/20 15:46:15 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:37:29 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,5 +307,7 @@ int			ft_asprintf(char **buf, const char *format, ...);
 
 /* Returns the absolute value of a number. */
 uint		ft_abs(int n);
+
+void	ft_free_string_array(char **str_arr);
 
 #endif
