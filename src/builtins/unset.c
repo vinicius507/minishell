@@ -6,17 +6,17 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:22:33 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 16:35:05 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:58:03 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins/builtins.h>
 
-void	unset(char **args)
+void	unset(t_token *args)
 {
-	while (*args != NULL)
+	while (args != NULL)
 	{
-		unset_env(*args);
-		args++;
+		unset_env(args->value);
+		args = args->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 18:43:07 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 19:17:31 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:36:22 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ static char	*prompt_string(void)
 	return (path);
 }
 
-char	**prompt(void)
+t_token	*prompt(void)
 {
 	char	*input;
-	char	**tokens;
 	char	*prompt;
+	t_token	*tokens;
 
 	prompt = prompt_string();
 	input = readline(prompt);

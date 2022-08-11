@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/02 17:22:42 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/10 16:46:56 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/10 17:40:26 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/11 11:51:42 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/builtins.h>
+#ifndef LEXER_H
+# define LEXER_H
 
-static void	update_pwd_envs(void)
+typedef struct s_token
 {
-	const char	*pwd;
+	char			*value;
+	struct s_token	*next;
+}	t_token;
 
-	pwd = getcwd(NULL, 0);
-	set_env("OLDPWD", get_env("PWD")->value);
-	set_env("PWD", pwd);
-	free((char *)pwd);
-}
+t_token	*new_token(t_token *previous);
 
-void	cd(t_token *args)
-{
-	const char	*path;
+void	free_tokens(t_token *token);
 
-	if (args == NULL)
-		path = get_env("HOME")->value;
-	else
-		path = args->value;
-	if ((chdir(path) == -1))
-	{
-		perror("error");
-		return ;
-	}
-	update_pwd_envs();
-}
+t_token	*lex(char *input);
+
+#endif

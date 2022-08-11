@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 16:01:23 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/10 15:03:39 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:55:01 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,29 +66,66 @@ static char	**process_env(void)
 	return (envp);
 }
 
-void	execute(char **tokens)
+static char	**process_argv(t_token *tokens)
+{
+	size_t	len;
+	t_token	*temp;
+	size_t	counter;
+	char	**argv;
+
+	len = 0;
+	temp = tokens;
+	while (temp != NULL)
+	{
+		len++;
+		temp = temp->next;
+	}
+	argv = ft_calloc(len + 1, sizeof(char *));
+	counter = 0;
+	while (counter < len)
+	{
+		argv[counter++] = tokens->value;
+		tokens = tokens->next;
+	}
+	return (argv);
+}
+
+static void	execute_process(char *bin, char **argv, char **envp)
+{
+	int		pid;
+
+	pid = fork();
+	if (pid == -1)
+		perror("minishell");
+	else if (pid == 0)
+	{
+		execve(bin, argv, envp);
+		perror("minishell");
+		exit(1);
+	}
+	else
+	{
+		if (waitpid(pid, NULL, 0) == -1)
+			perror("minishell");
+	}
+}
+
+void	execute(t_token *tokens)
 {
 	char	*bin_path;
 	char	**envp;
-	int		pid;
+	char	**argv;
 
-	bin_path = find_bin_path(tokens[0]);
+	bin_path = find_bin_path(tokens->value);
 	if (bin_path == NULL)
-		printf("minishell: %s: command not found\n", tokens[0]);
+		printf("minishell: %s: command not found\n", tokens->value);
 	else
 	{
 		envp = process_env();
-		pid = fork();
-		if (pid == -1)
-			perror("minishell");
-		else if (pid == 0)
-		{
-			execve(bin_path, tokens, envp);
-			perror("minishell");
-			exit(1);
-		}
-		else if (waitpid(pid, NULL, 0) == -1)
-			perror("minishell");
+		argv = process_argv(tokens);
+		execute_process(bin_path, argv, envp);
 		ft_free_string_array(envp);
+		free(bin_path);
+		free(argv);
 	}
 }

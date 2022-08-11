@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 20:39:22 by jefernan          #+#    #+#             */
-/*   Updated: 2022/08/10 14:23:59 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:50:53 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <env/env.h>
+# include <lexer/lexer.h>
 
 typedef struct s_shell
 {
@@ -26,10 +27,8 @@ typedef struct s_shell
 
 extern t_shell	g_sh;
 
-char	**lex(char *input);
+t_token	*prompt(void);
 
-char	**prompt(void);
-
-void	execute(char **tokens);
+void	execute(t_token *tokens);
 
 #endif
