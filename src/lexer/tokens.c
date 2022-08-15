@@ -1,18 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/26 20:30:12 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 11:50:10 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/11 09:58:13 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/11 11:51:50 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <lexer/lexer.h>
+#include <minishell.h>
 
-char	**lex(char *input)
+t_token	*new_token(t_token	*previous)
 {
-	return (ft_split(input, ' '));
+	t_token	*new;
+
+	new = ft_calloc(1, sizeof(t_token));
+	if (previous != NULL)
+		previous->next = new;
+	return (new);
+}
+
+void	free_tokens(t_token	*token)
+{
+	if (token == NULL)
+		return ;
+	free_tokens(token->next);
+	free(token->value);
+	free(token);
 }

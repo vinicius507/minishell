@@ -6,45 +6,52 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:04:15 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 12:51:02 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:54:34 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins/builtins.h>
 
-static char	*join(char **args)
+static char	*join(t_token *args)
 {
-	char	*left;
 	char	*temp;
-	char	**right;
+	t_token	*token;
+	char	*result;
 
-	if (args[0] == NULL)
+	if (args == NULL)
 		return (ft_strdup(""));
-	left = ft_strdup(args[0]);
-	right = args + 1;
-	while (*right != NULL)
+	result = ft_strdup(args->value);
+	token = args->next;
+	while (token != NULL)
 	{
-		ft_asprintf(&temp, "%s %s", left, *right);
-		free(left);
-		left = temp;
-		right++;
+		ft_asprintf(&temp, "%s %s", result, token->value);
+		free(result);
+		result = temp;
+		token = token->next;
 	}
-	return (left);
+	return (result);
 }
 
-void	echo(char **args)
+void	echo(t_token *args)
 {
 	char	*output;
+	char	print_nl;
 
-	if (args[0] != NULL && ft_strcmp(args[0], "-n") == 0)
+	if (args == NULL)
 	{
-		output = join(args + 1);
-		printf("%s", output);
+		ft_putstr("\n");
+		return ;
 	}
+	print_nl = 1;
+	if ((ft_strcmp(args->value, "-n") == 0))
+	{
+		print_nl = 0;
+		args = args->next;
+	}
+	output = join(args);
+	if (print_nl == 0)
+		ft_putstr(output);
 	else
-	{
-		output = join(args);
-		printf("%s\n", output);
-	}
+		ft_putendl_fd(output, 1);
 	free(output);
 }
