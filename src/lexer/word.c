@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 14:30:51 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/15 14:31:32 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/15 17:34:39 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ static char	has_matching_quote(char *str)
 static size_t	word_len(char *word)
 {
 	char	quote;
+	size_t	length;
 	size_t	counter;
 
 	quote = 0;
+	length = 0;
 	counter = 0;
 	while (word[counter] != '\0')
 	{
@@ -57,20 +59,20 @@ static size_t	word_len(char *word)
 			quote = word[counter];
 		else if (quote == word[counter])
 			quote = 0;
+		else
+			length++;
 		counter++;
 	}
-	return (counter);
+	return (length);
 }
 
-static char	*word_copy(char *src, char *dest)
+static size_t	word_copy(char *src, char *dest)
 {
 	char	quote;
 	size_t	src_counter;
-	size_t	dest_counter;
 
 	quote = 0;
 	src_counter = 0;
-	dest_counter = 0;
 	while (src[src_counter] != '\0')
 	{
 		if (quote == 0 && (is_metachar(src[src_counter]) != 0))
@@ -83,28 +85,21 @@ static char	*word_copy(char *src, char *dest)
 			quote = 0;
 		else
 		{
-			dest[dest_counter] = src[src_counter];
-			dest_counter++;
+			*dest = src[src_counter];
+			dest++;
 		}
 		src_counter++;
 	}
-	return (dest);
+	return (src_counter - 1);
 }
 
 char	*word(char *input, size_t *counter)
 {
-	char	*temp;
 	char	*word;
 	size_t	length;
 
 	length = word_len(input + *counter);
-	temp = ft_calloc(length + 1, sizeof(char));
-	word = word_copy(input + *counter, temp);
-	if (ft_strlen(word) != length)
-	{
-		word = ft_strdup(temp);
-		free(temp);
-	}
-	*counter = *counter + length - 1;
+	word = ft_calloc(length + 1, sizeof(char));
+	*counter += word_copy(input + *counter, word);
 	return (word);
 }
