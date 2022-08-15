@@ -1,40 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   char.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/10 17:40:26 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/15 17:44:05 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/15 17:43:09 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/15 17:43:35 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#include <lexer/lexer.h>
+#include <minishell.h>
 
-# include <stdlib.h>
-
-typedef struct s_token
+int	is_metachar(char c)
 {
-	char			*value;
-	struct s_token	*next;
-}	t_token;
+	return ((ft_isspace(c) != 0));
+}
 
-t_token	*new_token(t_token *previous);
+int	is_quote(char c)
+{
+	return (c == '\'' || c == '"');
+}
 
-void	free_tokens(t_token *token);
+char	has_matching_quote(char *str)
+{
+	char	quote;
 
-int		tokens_count(t_token *token);
-
-t_token	*lex(char *input);
-
-int	is_metachar(char c);
-
-int		is_quote(char c);
-
-char	has_matching_quote(char *str);
-
-char	*word(char *input, size_t *counter);
-
-#endif
+	if (str == NULL)
+		return (0);
+	quote = str[0];
+	str++;
+	while (*str != '\0')
+	{
+		if (*str == quote)
+			return (1);
+		str++;
+	}
+	return (0);
+}

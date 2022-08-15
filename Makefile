@@ -11,7 +11,7 @@ vpath %.c src src/builtins src/env src/lexer
 SRCS = main.c exit.c pwd.c lex.c echo.c env.c set_env.c \
 	setup_env.c get_env.c free_env.c export.c get_builtin.c \
 	unset_env.c unset.c cd.c prompt.c execute.c tokens.c \
-	word.c
+	word.c char.c
 
 OBJ_DIR = ./objs
 OBJECTS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))

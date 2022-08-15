@@ -6,39 +6,12 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 14:30:51 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/15 17:34:39 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/15 17:46:47 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lexer/lexer.h>
 #include <minishell.h>
-
-static inline int	is_metachar(char c)
-{
-	return ((ft_isspace(c) != 0));
-}
-
-static inline int	is_quote(char c)
-{
-	return (c == '\'' || c == '"');
-}
-
-static char	has_matching_quote(char *str)
-{
-	char	quote;
-
-	if (str == NULL)
-		return (0);
-	quote = str[0];
-	str++;
-	while (*str != '\0')
-	{
-		if (*str == quote)
-			return (1);
-		str++;
-	}
-	return (0);
-}
 
 static size_t	word_len(char *word)
 {
@@ -93,13 +66,28 @@ static size_t	word_copy(char *src, char *dest)
 	return (src_counter - 1);
 }
 
+char	*expand_env_vars(char *word)
+{
+	t_env	*env;
+
+	if (word[0] != '$')
+		return (ft_strdup(word));
+	env = get_env(ft_strdup(&(word[1])));
+	if (env == NULL)
+		return (ft_strdup(""));
+	return (ft_strdup(env->value));
+}
+
 char	*word(char *input, size_t *counter)
 {
+	char	*temp;
 	char	*word;
 	size_t	length;
 
 	length = word_len(input + *counter);
-	word = ft_calloc(length + 1, sizeof(char));
-	*counter += word_copy(input + *counter, word);
+	temp = ft_calloc(length + 1, sizeof(char));
+	*counter += word_copy(input + *counter, temp);
+	word = expand_env_vars(temp);
+	free(temp);
 	return (word);
 }
