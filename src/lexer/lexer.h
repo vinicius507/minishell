@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:40:26 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/15 14:32:30 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:37:18 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct s_token
 t_token	*new_token(t_token *previous);
 
 void	free_tokens(t_token *token);
+
+int		tokens_count(t_token *token);
 
 t_token	*lex(char *input);
 

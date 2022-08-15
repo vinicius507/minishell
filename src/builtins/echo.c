@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:04:15 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/11 11:54:34 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:41:20 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*join(t_token *args)
 	return (result);
 }
 
-void	echo(t_token *args)
+int	echo(int argc, t_token *args)
 {
 	char	*output;
 	char	print_nl;
@@ -40,7 +40,7 @@ void	echo(t_token *args)
 	if (args == NULL)
 	{
 		ft_putstr("\n");
-		return ;
+		return (0);
 	}
 	print_nl = 1;
 	if ((ft_strcmp(args->value, "-n") == 0))
@@ -54,4 +54,6 @@ void	echo(t_token *args)
 	else
 		ft_putendl_fd(output, 1);
 	free(output);
+	(void)argc;
+	return (0);
 }

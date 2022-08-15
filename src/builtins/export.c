@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:23:33 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/10 16:57:18 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:39:43 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ static void	export_env(t_token *env)
 	free((void *)value);
 }
 
-void	export(t_token *args)
+int	export(int argc, t_token *args)
 {
 	while (args != NULL)
 	{
 		export_env(args);
 		args = args->next;
 	}
+	(void)argc;
+	return (0);
 }

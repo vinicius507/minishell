@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 16:01:23 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/11 11:55:01 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:17:09 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ static char	**process_argv(t_token *tokens)
 static void	execute_process(char *bin, char **argv, char **envp)
 {
 	int		pid;
+	int		status;
 
 	pid = fork();
 	if (pid == -1)
@@ -105,8 +106,9 @@ static void	execute_process(char *bin, char **argv, char **envp)
 	}
 	else
 	{
-		if (waitpid(pid, NULL, 0) == -1)
+		if (waitpid(pid, &status, 0) == -1)
 			perror("minishell");
+		g_sh.ret_code = (((status) & 0xff00) >> 8);
 	}
 }
 

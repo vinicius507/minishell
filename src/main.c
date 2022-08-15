@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:22:43 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/10 17:40:00 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:43:45 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,21 @@
 
 t_shell	g_sh;
 
+static void	setup_shell(char **envp)
+{
+	setup_env(envp);
+	g_sh.loop = 1;
+	g_sh.ret_code = 0;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_token		*tokens;
 	t_builtin	*builtin;
+	int			builtin_argc;
 
-	g_sh.loop = 1;
 	builtin = NULL;
-	setup_env(envp);
+	setup_shell(envp);
 	while (g_sh.loop == 1)
 	{
 		tokens = prompt();
@@ -30,7 +37,10 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		builtin = get_builtin(tokens->value);
 		if (builtin != NULL)
-			builtin(tokens->next);
+		{
+			builtin_argc = tokens_count(tokens->next);
+			g_sh.ret_code = builtin(builtin_argc, tokens->next);
+		}
 		else if (tokens != NULL)
 			execute(tokens);
 		free_tokens(tokens);

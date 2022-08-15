@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 09:58:13 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/11 11:51:50 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:37:05 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,17 @@ void	free_tokens(t_token	*token)
 	free_tokens(token->next);
 	free(token->value);
 	free(token);
+}
+
+int	tokens_count(t_token *token)
+{
+	int	count;
+
+	count = 0;
+	while (token != NULL)
+	{
+		count++;
+		token = token->next;
+	}
+	return (count);
 }

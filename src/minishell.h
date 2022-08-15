@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 20:39:22 by jefernan          #+#    #+#             */
-/*   Updated: 2022/08/11 11:50:53 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/15 14:56:30 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 typedef struct s_shell
 {
 	char	loop;
+	int		ret_code;
 	t_env	*env;
 }	t_shell;
 
