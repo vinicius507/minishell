@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 09:56:34 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/15 14:31:36 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:43:56 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_token	*lex(char *input)
 	t_token	*token;
 
 	if (input == NULL)
-		input = ft_strdup("exit");
+		input = "exit";
 	counter = 0;
 	start = NULL;
 	token = NULL;
