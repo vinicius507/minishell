@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex.c                                              :+:      :+:    :+:   */
+/*   char.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/11 09:56:34 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/17 16:43:56 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/15 17:43:09 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/16 15:25:23 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lexer/lexer.h>
 #include <minishell.h>
 
-t_token	*lex(char *input)
+int	is_metachar(char c)
 {
-	size_t	counter;
-	t_token	*start;
-	t_token	*token;
+	return ((ft_isspace(c) != 0));
+}
 
-	if (input == NULL)
-		input = "exit";
-	counter = 0;
-	start = NULL;
-	token = NULL;
-	while (input[counter] != '\0')
+int	is_quote(char c)
+{
+	return (c == SINGLE_QUOTE || c == DOUBLE_QUOTE);
+}
+
+char	has_matching_quote(char *str)
+{
+	char	quote;
+
+	if (str == NULL)
+		return (0);
+	quote = str[0];
+	str++;
+	while (*str != '\0')
 	{
-		if (ft_isspace(input[counter]) != 0 && ++counter)
-			continue ;
-		token = new_token(token);
-		if (start == NULL)
-			start = token;
-		token->value = word(input, &counter);
-		counter++;
+		if (*str == quote)
+			return (1);
+		str++;
 	}
-	return (start);
+	return (0);
 }
