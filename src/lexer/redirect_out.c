@@ -1,50 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char.c                                             :+:      :+:    :+:   */
+/*   redirect_out.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/15 17:43:09 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/17 21:11:16 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/17 21:22:59 by jefernan          #+#    #+#             */
+/*   Updated: 2022/08/17 21:47:43 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lexer/lexer.h>
 #include <minishell.h>
 
-int	is_redirect(char c)
+char	*redirect_out(char *input, size_t *counter)
 {
-	if (c == REDIRECT_OUT)
-		return (1);
-	return (0);
-}
-
-int	is_metachar(char c)
-{
-	if (is_redirect(c) == 1)
-		return (1);
-	return ((ft_isspace(c) != 0));
-}
-
-int	is_quote(char c)
-{
-	return (c == SINGLE_QUOTE || c == DOUBLE_QUOTE);
-}
-
-char	has_matching_quote(char *str)
-{
-	char	quote;
-
-	if (str == NULL)
-		return (0);
-	quote = str[0];
-	str++;
-	while (*str != '\0')
-	{
-		if (*str == quote)
-			return (1);
-		str++;
-	}
-	return (0);
+	*counter += 1;
+	while (ft_isspace(input[*counter]) != 0)
+		*counter += 1;
+	return (word(input, counter));
 }
