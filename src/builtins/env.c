@@ -6,14 +6,14 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:08:01 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/15 15:33:37 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/18 12:58:18 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <env/env.h>
 #include <builtins/builtins.h>
 
-int	env(int argc, t_token *args)
+int	env(int argc, char **args)
 {
 	t_env	*env;
 

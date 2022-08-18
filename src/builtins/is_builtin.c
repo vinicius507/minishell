@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/02 16:22:33 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/18 13:21:42 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/18 12:39:32 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/18 12:40:45 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins/builtins.h>
 
-int	unset(int argc, char **args)
+int	is_builtin(t_token *token)
 {
-	while (*args != NULL)
-	{
-		unset_env(*args);
-		args++;
-	}
-	(void)argc;
+	if ((get_builtin(token->value) != NULL))
+		return (1);
 	return (0);
 }

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   execute_bin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/06 16:01:23 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/15 15:17:09 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/18 12:31:08 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/18 13:33:31 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <execute/execute.h>
 #include <sys/wait.h>
-#include <minishell.h>
 
 static char	*find_bin_path(char *cmd)
 {
@@ -66,38 +66,17 @@ static char	**process_env(void)
 	return (envp);
 }
 
-static char	**process_argv(t_token *tokens)
-{
-	size_t	len;
-	t_token	*temp;
-	size_t	counter;
-	char	**argv;
-
-	len = 0;
-	temp = tokens;
-	while (temp != NULL)
-	{
-		len++;
-		temp = temp->next;
-	}
-	argv = ft_calloc(len + 1, sizeof(char *));
-	counter = 0;
-	while (counter < len)
-	{
-		argv[counter++] = tokens->value;
-		tokens = tokens->next;
-	}
-	return (argv);
-}
-
-static void	execute_process(char *bin, char **argv, char **envp)
+static int	execute_process(char *bin, char **argv, char **envp)
 {
 	int		pid;
 	int		status;
 
 	pid = fork();
 	if (pid == -1)
+	{
 		perror("minishell");
+		g_sh.ret_code = 1;
+	}
 	else if (pid == 0)
 	{
 		execve(bin, argv, envp);
@@ -112,7 +91,7 @@ static void	execute_process(char *bin, char **argv, char **envp)
 	}
 }
 
-void	execute(t_token *tokens)
+void	execute_bin(t_token *tokens)
 {
 	char	*bin_path;
 	char	**envp;
@@ -120,14 +99,22 @@ void	execute(t_token *tokens)
 
 	bin_path = find_bin_path(tokens->value);
 	if (bin_path == NULL)
-		printf("minishell: %s: command not found\n", tokens->value);
-	else
+		return (error(tokens->value, "command not found"));
+	envp = process_env();
+	if (envp == NULL)
 	{
-		envp = process_env();
-		argv = process_argv(tokens);
-		execute_process(bin_path, argv, envp);
-		ft_free_string_array(envp);
 		free(bin_path);
-		free(argv);
+		return (error(tokens->value, "could not build process environment"));
 	}
+	argv = build_argv(tokens);
+	if (argv == NULL)
+	{
+		free(envp);
+		free(bin_path);
+		return (error(tokens->value, "could not process command arguments"));
+	}
+	execute_process(bin_path, argv, envp);
+	ft_free_string_array(envp);
+	free(bin_path);
+	free(argv);
 }

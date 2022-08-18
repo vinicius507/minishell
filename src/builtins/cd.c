@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 17:22:42 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/15 15:38:10 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/18 13:16:02 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ static void	update_pwd_envs(void)
 	free((char *)pwd);
 }
 
-int	cd(int argc, t_token *args)
+int	cd(int argc, char **args)
 {
 	const char	*path;
 
 	if (argc > 1)
 	{
-		printf("minishell: cd: too many arguments\n");
+		error("cd: too many arguments", NULL);
 		return (1);
 	}
-	if (args == NULL)
+	if (*args == NULL)
 		path = get_env("HOME")->value;
 	else
-		path = args->value;
+		path = *args;
 	if ((chdir(path) == -1))
 	{
 		perror("error");

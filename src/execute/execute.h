@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/25 15:21:28 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/18 13:23:08 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/17 20:54:19 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/18 13:29:35 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#ifndef EXECUTE_H
+# define EXECUTE_H
 
 # include <minishell.h>
 
-typedef int	t_builtin (int argc, char **args);
+int		count_argc(t_token *tokens);
 
-int			is_builtin(t_token *token);
+char	**build_argv(t_token *tokens);
 
-t_builtin	*get_builtin(const char *cmd);
+int		execute_builtin(t_token *tokens);
 
-int			shell_exit(int argc, char **args);
-
-int			pwd(int argc, char **args);
-
-int			echo(int argc, char **args);
-
-int			env(int argc, char **args);
-
-int			export(int argc, char **args);
-
-int			unset(int argc, char **args);
-
-int			cd(int argc, char **args);
+void	execute_bin(t_token *tokens);
 
 #endif
