@@ -66,7 +66,7 @@ static char	**process_env(void)
 	return (envp);
 }
 
-static int	execute_process(char *bin, char **argv, char **envp)
+static void	execute_process(char *bin, char **argv, char **envp)
 {
 	int		pid;
 	int		status;
