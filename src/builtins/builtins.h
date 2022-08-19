@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* ************************************************************************* */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
@@ -17,7 +17,7 @@
 
 typedef int	t_builtin (int argc, char **args);
 
-int			is_builtin(t_token *token);
+int			is_builtin(char *cmd);
 
 t_builtin	*get_builtin(const char *cmd);
 

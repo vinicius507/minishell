@@ -14,30 +14,35 @@
 
 int	count_argc(t_token *tokens)
 {
-	return (tokens_count(tokens));
+	int	argc;
+
+	argc = 0;
+	if (tokens == NULL)
+		return (0);
+	while (tokens != NULL)
+	{ 
+		if (tokens->type == TWORD)
+			argc++;
+		tokens = tokens->next;
+	}
+	return (argc);
 }
 
 char	**build_argv(t_token *tokens)
 {
 	size_t	len;
-	t_token	*temp;
 	size_t	counter;
 	char	**argv;
 
-	len = 0;
-	temp = tokens;
-	while (temp != NULL)
-	{
-		len++;
-		temp = temp->next;
-	}
+	len = count_argc(tokens);
 	argv = ft_calloc(len + 1, sizeof(char *));
 	if (argv == NULL)
 		return (NULL);
 	counter = 0;
 	while (counter < len)
 	{
-		argv[counter++] = tokens->value;
+		if (tokens->type == TWORD)
+			argv[counter++] = tokens->value;
 		tokens = tokens->next;
 	}
 	return (argv);

@@ -12,9 +12,9 @@
 
 #include <builtins/builtins.h>
 
-int	is_builtin(t_token *token)
+int	is_builtin(char *cmd)
 {
-	if ((get_builtin(token->value) != NULL))
+	if ((get_builtin(cmd) != NULL))
 		return (1);
 	return (0);
 }

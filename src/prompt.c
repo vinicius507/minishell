@@ -32,7 +32,7 @@ static char	*prompt_string(void)
 			absolute_path + home_size);
 	}
 	else
-		ft_asprintf(&path, "%s@%s:%s$",
+		ft_asprintf(&path, "%s@%s:%s$ ",
 			get_env("USER")->value,
 			"minishell",
 			absolute_path);

@@ -17,7 +17,7 @@ void	error(char *message, char *detail)
 	if (message == NULL)
 		message = "unknown error";
 	if (detail == NULL)
-		printf("minishell: %s\n", message);
+		ft_dprintf(STDERR_FILENO, "minishell: %s\n", message);
 	else
-		printf("minishell: %s: %s\n", message, detail);
+		ft_dprintf(STDERR_FILENO, "minishell: %s: %s\n", message, detail);
 }

@@ -26,6 +26,7 @@ static void	setup_shell(char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_token		*tokens;
+	t_command	*command;
 
 	setup_shell(envp);
 	while (g_sh.loop == 1)
@@ -33,11 +34,18 @@ int	main(int argc, char **argv, char **envp)
 		tokens = prompt();
 		if (tokens == NULL)
 			continue ;
-		if ((is_builtin(tokens) != 0))
-			g_sh.ret_code = execute_builtin(tokens);
+		command = new_command(tokens);
+		if (command == NULL)
+		{
+			free_tokens(tokens);
+			continue ;
+		}
+		if ((is_builtin(command->argv[0]) != 0))
+			g_sh.ret_code = execute_builtin(command);
 		else
-			execute_bin(tokens);
+			execute_bin(command);
 		free_tokens(tokens);
+		free_command(command);
 	}
 	free_env();
 	(void)argc;
