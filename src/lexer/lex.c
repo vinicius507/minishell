@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 09:56:34 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/19 15:29:48 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:54:36 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ t_token	*lex(char *input)
 	{
 		if (ft_isspace(input[counter]) != 0 && ++counter)
 			continue ;
-		token = new_token(input[counter], token);
+		token = new_token(&input[counter], token);
 		if (start == NULL)
 			start = token;
-		if (token->type == TREDIRECT_OUT || token->type == TREDIRECT_IN)
+		if (token->type == TREDIRECT_OUT || token->type == TREDIRECT_IN
+			|| token->type == TREDIRECT_APPND)
 			token->value = redirect(input, &counter);
 		else
 			token->value = word(input, &counter);

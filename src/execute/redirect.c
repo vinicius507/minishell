@@ -6,15 +6,19 @@
 static int	get_stdout_fd(t_redirection *redirections)
 {
 	int	fd;
+	int	fmode;
 	
 	fd = -1;
 	while (redirections != NULL)
 	{
-		if (redirections->type == RED_STDOUT)
+		if (redirections->type == RED_STDOUT || redirections->type == RED_APPND)
 		{
 			if (fd >= 0)
 				close(fd);
-			fd = open(redirections->content, FWRITE_MODE, FWRITE_PERM);
+			fmode = FWRITE_MODE;
+			if (redirections->type == RED_APPND)
+				fmode = FAPPND_MODE;
+			fd = open(redirections->content, fmode, FWRITE_PERM);
 			if (fd == -1)
 				return (ERRO);
 		}

@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:40:26 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/19 15:30:29 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:53:09 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef enum e_type
 	TWORD,
 	TREDIRECT_OUT,
 	TREDIRECT_IN,
+	TREDIRECT_APPND,
 }	t_type;
 
 typedef struct s_token
@@ -34,7 +35,7 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-t_token	*new_token(char	c, t_token *previous);
+t_token	*new_token(char	*c, t_token *previous);
 
 void	free_tokens(t_token *token);
 
