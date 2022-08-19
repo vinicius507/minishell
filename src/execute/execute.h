@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 20:54:19 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/19 16:00:27 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:17:00 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ void			free_command(t_command *command);
 
 t_command		*new_command(t_token *token);
 
-void			handle_redirects(t_redirection *redirections);
+int				handle_redirects(t_redirection *redirections);
 
 #endif
