@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 20:54:19 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/18 13:29:35 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:00:27 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@
 
 # define FWRITE_MODE O_WRONLY | O_CREAT
 # define FWRITE_PERM S_IWUSR | S_IRUSR | S_IRGRP | S_IROTH
+# define FREAD_MODE O_RDONLY
+# define FREAD_PERM 0
 
 typedef enum e_redirection_type
 {
 	RED_STDOUT,
+	RED_STDIN,
 	RED_COUNT,
 }	t_redirection_type;
 
@@ -51,7 +54,7 @@ void			execute_bin(t_command *command);
 
 void			free_redirections(t_redirection *redirection);
 
-t_redirection	*new_redirection(t_redirection *prev);
+t_redirection	*new_redirection(t_type type, t_redirection *prev);
 
 t_redirection	*get_redirections(t_token *tokens);
 

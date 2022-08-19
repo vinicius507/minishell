@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 09:56:34 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/17 21:46:51 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:29:48 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_token	*lex(char *input)
 		token = new_token(input[counter], token);
 		if (start == NULL)
 			start = token;
-		if (token->type == TREDIRECT_OUT)
-			token->value = redirect_out(input, &counter);
+		if (token->type == TREDIRECT_OUT || token->type == TREDIRECT_IN)
+			token->value = redirect(input, &counter);
 		else
 			token->value = word(input, &counter);
 		counter++;

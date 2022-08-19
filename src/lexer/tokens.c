@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 09:58:13 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/17 21:43:27 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:32:18 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ t_token	*new_token(char	c, t_token	*previous)
 	t_token	*new;
 
 	new = ft_calloc(1, sizeof(t_token));
-	if (is_redirect(c) == 1)
+	if (c == REDIRECT_OUT)
 		new->type = TREDIRECT_OUT;
+	else if (c == REDIRECT_IN)
+		new->type = TREDIRECT_IN;
 	else
 		new->type = TWORD;
 	if (previous != NULL)

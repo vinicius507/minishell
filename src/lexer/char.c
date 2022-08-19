@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 17:43:09 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/17 21:11:16 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:32:44 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	is_redirect(char c)
 {
-	if (c == REDIRECT_OUT)
+	if (c == REDIRECT_OUT || c == REDIRECT_IN)
 		return (1);
 	return (0);
 }

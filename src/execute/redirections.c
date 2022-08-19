@@ -9,14 +9,17 @@ void	free_redirections(t_redirection *redirection)
 	free(redirection);
 }
 
-t_redirection	*new_redirection(t_redirection *prev)
+t_redirection	*new_redirection(t_type type, t_redirection *prev)
 {
 	t_redirection	*redirection;
 
 	redirection = ft_calloc(1, sizeof(t_redirection));
 	if (redirection == NULL)
 		return (NULL);
-	redirection->type = RED_STDOUT;
+	if (type == TREDIRECT_OUT)
+		redirection->type = RED_STDOUT;
+	else
+		redirection->type = RED_STDIN;
 	if (prev != NULL)
 		prev->next = redirection;
 	return (redirection);
@@ -31,9 +34,9 @@ t_redirection	*get_redirections(t_token *tokens)
 	redirections = NULL;
 	while (tokens != NULL)
 	{
-		if (tokens->type == TREDIRECT_OUT)
+		if (tokens->type == TREDIRECT_OUT || tokens->type == TREDIRECT_IN)
 		{
-			redirections = new_redirection(redirections);
+			redirections = new_redirection(tokens->type, redirections);
 			if (redirections == NULL)
 			{ 
 				free_redirections(start);

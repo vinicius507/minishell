@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:40:26 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/17 21:47:08 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:30:29 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@
 # define DOUBLE_QUOTE '"'
 # define SINGLE_QUOTE '\''
 # define REDIRECT_OUT '>'
+# define REDIRECT_IN '<'
 
 typedef enum e_type
 {
 	TWORD,
 	TREDIRECT_OUT,
+	TREDIRECT_IN,
 }	t_type;
 
 typedef struct s_token
@@ -54,6 +56,6 @@ char	*expand_env_vars(char *word);
 
 char	*word(char *input, size_t *counter);
 
-char	*redirect_out(char *input, size_t *counter);
+char	*redirect(char *input, size_t *counter);
 
 #endif
