@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 12:36:43 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/18 12:56:50 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:19:09 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	count_argc(t_token *tokens)
 	if (tokens == NULL)
 		return (0);
 	while (tokens != NULL)
-	{ 
+	{
 		if (tokens->type == TWORD && (ft_strcmp(tokens->value, "") != 0))
 			argc++;
 		tokens = tokens->next;

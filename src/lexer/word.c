@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 14:30:51 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/17 16:41:22 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:18:11 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static size_t	word_len(char *input, int expand)
 		else if (quote == input[counter])
 			quote = 0;
 		else if (expand != 0 && input[counter] == '$'
-				&& (quote == 0 || quote == DOUBLE_QUOTE))
+			&& (quote == 0 || quote == DOUBLE_QUOTE))
 			length += env_len(&input[counter + 1], &counter);
 		else
 			length++;
@@ -97,7 +97,7 @@ static size_t	word_copy(char *src, char *dest, int expand)
 		else if (quote == src[counter])
 			quote = 0;
 		else if (expand != 0 && src[counter] == '$'
-				&& (quote == 0 || quote == DOUBLE_QUOTE))
+			&& (quote == 0 || quote == DOUBLE_QUOTE))
 			dest = env_copy(dest, src, &counter);
 		else
 		{

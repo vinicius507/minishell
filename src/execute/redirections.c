@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirections.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/20 16:31:43 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/20 16:31:44 by vgoncalv         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <execute/execute.h>
 #include <builtins/builtins.h>
 
@@ -33,7 +45,7 @@ t_redirection	*get_redirections(t_token *tokens)
 {
 	t_redirection	*start;
 	t_redirection	*redirections;
-	
+
 	start = NULL;
 	redirections = NULL;
 	while (tokens != NULL)
@@ -44,7 +56,7 @@ t_redirection	*get_redirections(t_token *tokens)
 		{
 			redirections = new_redirection(tokens->type, redirections);
 			if (redirections == NULL)
-			{ 
+			{
 				free_redirections(start);
 				error("error while parsing the input", NULL);
 				return (NULL);
@@ -57,4 +69,3 @@ t_redirection	*get_redirections(t_token *tokens)
 	}
 	return (start);
 }
-

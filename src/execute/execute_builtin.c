@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 12:32:01 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/18 13:30:00 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:18:50 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	execute_builtin(t_command *command)
 	}
 	return_code = builtin(command->argc - 1, command->argv + 1);
 	if (stdout_fd >= 0)
-	{ 
+	{
 		dup2(stdout_fd, STDOUT_FILENO);
 		close(stdout_fd);
 	}

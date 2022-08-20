@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/20 16:19:02 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/20 16:19:03 by vgoncalv         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <execute/execute.h>
 #include <builtins/builtins.h>
 
@@ -87,7 +99,7 @@ static void	fallback_command(t_command *command)
 	if (red_stdin != 0)
 		command->argv[0] = "cat";
 	else if (red_stdout != 0)
-	{ 
+	{
 		command->argv[0] = "echo";
 		command->argv[1] = "-n";
 	}
