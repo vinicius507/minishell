@@ -11,7 +11,7 @@ vpath %.c src src/builtins src/env src/lexer src/execute
 SRCS = main.c exit.c pwd.c lex.c echo.c env.c set_env.c \
 	setup_env.c get_env.c free_env.c export.c get_builtin.c \
 	unset_env.c unset.c cd.c prompt.c tokens.c word.c char.c \
-	get_env_key.c redirect_out.c is_builtin.c args.c execute_bin.c \
+	get_env_key.c redirect.c is_builtin.c args.c execute_bin.c \
 	execute_builtin.c error.c handle_redirects.c command.c \
 	redirections.c heredoc.c
 
