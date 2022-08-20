@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:23:33 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/18 13:26:44 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:22:57 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,24 @@ static int	is_valid_key(char *key)
 	return (1);
 }
 
-static void	export_env(char *env)
+static int	export_env(char *env)
 {
 	const char	*equal_sign;
 	const char	*key;
 	const char	*value;
+	int			is_valid;
 
 	equal_sign = ft_strchr(env, '=');
 	if (equal_sign == NULL)
-		return ;
+		return (0);
 	if (equal_sign == env)
-		return (error("export: invalid key", env));
+	{
+		error("export: invalid key", env);
+		return (1);
+	}
 	key = ft_substr(env, 0, equal_sign - env);
-	if ((is_valid_key((char *)key)) == 0)
+	is_valid = is_valid_key((char *)key);
+	if (is_valid == 0)
 		error("export: invalid key", (char *)key);
 	else
 	{
@@ -47,15 +52,20 @@ static void	export_env(char *env)
 		free((void *)value);
 	}
 	free((void *)key);
+	return (is_valid != 0);
 }
 
 int	export(int argc, char **args)
 {
+	int	ret_code;
+
+	ret_code = 0;
 	while (*args != NULL)
 	{
-		export_env(*args);
+		if ((export_env(*args) != 0))
+			ret_code = 1;
 		args++;
 	}
 	(void)argc;
-	return (0);
+	return (ret_code);
 }
