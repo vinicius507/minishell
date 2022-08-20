@@ -47,6 +47,7 @@ t_token	*prompt(void)
 	t_token	*tokens;
 
 	setup_signal(sig_prompt, SIGINT);
+	setup_signal(SIG_IGN, SIGQUIT);
 	prompt = prompt_string();
 	input = readline(prompt);
 	free(prompt);
