@@ -22,6 +22,7 @@ static int	set_stdout_fd(t_redirection *redirections)
 			fd = open(redirections->content, fmode, FWRITE_PERM);
 			if (fd == -1)
 				return (ERRO);
+			ft_putstr_fd("", fd);
 			dup_fd = dup2(fd, STDOUT_FILENO);
 			close(fd);
 			if (dup_fd == -1)
