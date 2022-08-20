@@ -19,5 +19,5 @@ char	*redirect(char *input, size_t *counter)
 		*counter += 1;
 	while ((ft_isspace(input[*counter]) != 0))
 		*counter += 1;
-	return (word(input, counter));
+	return (word(input, counter, 1));
 }

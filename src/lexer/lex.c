@@ -6,16 +6,41 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 09:56:34 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/19 16:54:36 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:34:27 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lexer/lexer.h>
 #include <minishell.h>
 
+static t_type	get_token_type(char *input)
+{
+	if (input[0] == REDIRECT_OUT && input[0] == input[1])
+		return (TREDIRECT_APPND);
+	else if (input[0] == REDIRECT_IN && input[0] == input[1])
+		return (TREDIRECT_HDOC);
+	else if (input[0] == REDIRECT_OUT)
+		return (TREDIRECT_OUT);
+	else if (input[0] == REDIRECT_IN)
+		return (TREDIRECT_IN);
+	return (TWORD);
+}
+
+static char	*get_token_value(t_type type, char *input, size_t *counter)
+{
+	if (type == TREDIRECT_OUT || type == TREDIRECT_IN
+		|| type == TREDIRECT_APPND)
+		return (redirect(input, counter));
+	else if (type == TREDIRECT_HDOC)
+		return (here_doc(input, counter));
+	return (word(input, counter, 1));
+}
+
 t_token	*lex(char *input)
 {
 	size_t	counter;
+	t_type	type;
+	char	*value;
 	t_token	*start;
 	t_token	*token;
 
@@ -28,14 +53,16 @@ t_token	*lex(char *input)
 	{
 		if (ft_isspace(input[counter]) != 0 && ++counter)
 			continue ;
-		token = new_token(&input[counter], token);
+		type = get_token_type(&(input[counter]));
+		value = get_token_value(type, input, &counter);
+		if (value == NULL)
+		{
+			free_tokens(start);
+			return (NULL);
+		}
+		token = new_token(type, value, token);
 		if (start == NULL)
 			start = token;
-		if (token->type == TREDIRECT_OUT || token->type == TREDIRECT_IN
-			|| token->type == TREDIRECT_APPND)
-			token->value = redirect(input, &counter);
-		else
-			token->value = word(input, &counter);
 		counter++;
 	}
 	return (start);

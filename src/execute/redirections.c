@@ -20,8 +20,10 @@ t_redirection	*new_redirection(t_type type, t_redirection *prev)
 		redirection->type = RED_STDOUT;
 	else if (type == TREDIRECT_IN)
 		redirection->type = RED_STDIN;
-	else
+	else if (type == TREDIRECT_APPND)
 		redirection->type = RED_APPND;
+	else
+		redirection->type = RED_HDOC;
 	if (prev != NULL)
 		prev->next = redirection;
 	return (redirection);
@@ -37,7 +39,7 @@ t_redirection	*get_redirections(t_token *tokens)
 	while (tokens != NULL)
 	{
 		if (tokens->type == TREDIRECT_OUT || tokens->type == TREDIRECT_IN
-			|| tokens->type == TREDIRECT_APPND)
+			|| tokens->type == TREDIRECT_APPND || tokens->type == TREDIRECT_HDOC)
 		{
 			redirections = new_redirection(tokens->type, redirections);
 			if (redirections == NULL)

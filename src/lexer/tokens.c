@@ -6,26 +6,22 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 09:58:13 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/19 16:52:51 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:34:27 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lexer/lexer.h>
 #include <minishell.h>
 
-t_token	*new_token(char	*c, t_token	*previous)
+t_token	*new_token(t_type type, char *value, t_token *previous)
 {
 	t_token	*new;
 
 	new = ft_calloc(1, sizeof(t_token));
-	if (c[0] == REDIRECT_OUT && c[0] == c[1])
-		new->type = TREDIRECT_APPND;
-	else if (c[0] == REDIRECT_OUT)
-		new->type = TREDIRECT_OUT;
-	else if (c[0] == REDIRECT_IN)
-		new->type = TREDIRECT_IN;
-	else
-		new->type = TWORD;
+	if (new == NULL)
+		return (NULL);
+	new->type = type;
+	new->value = value;
 	if (previous != NULL)
 		previous->next = new;
 	return (new);
