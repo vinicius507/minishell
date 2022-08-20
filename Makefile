@@ -7,11 +7,13 @@ LIBS = -L./libft -lft -lreadline
 LIBFT = ./libft/libft.a
 RM = rm -rf
 
-vpath %.c src src/builtins src/env src/lexer
+vpath %.c src src/builtins src/env src/lexer src/execute
 SRCS = main.c exit.c pwd.c lex.c echo.c env.c set_env.c \
 	setup_env.c get_env.c free_env.c export.c get_builtin.c \
-	unset_env.c unset.c cd.c prompt.c execute.c tokens.c \
-	word.c char.c get_env_key.c
+	unset_env.c unset.c cd.c prompt.c tokens.c word.c char.c \
+	get_env_key.c redirect.c is_builtin.c args.c execute_bin.c \
+	execute_builtin.c error.c handle_redirects.c command.c \
+	redirections.c heredoc.c command_utils.c
 
 OBJ_DIR = ./objs
 OBJECTS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))

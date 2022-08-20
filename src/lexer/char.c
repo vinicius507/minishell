@@ -6,15 +6,24 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 17:43:09 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/16 15:25:23 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:32:44 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lexer/lexer.h>
 #include <minishell.h>
 
+int	is_redirect(char c)
+{
+	if (c == REDIRECT_OUT || c == REDIRECT_IN)
+		return (1);
+	return (0);
+}
+
 int	is_metachar(char c)
 {
+	if (is_redirect(c) == 1)
+		return (1);
 	return ((ft_isspace(c) != 0));
 }
 

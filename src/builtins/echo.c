@@ -6,49 +6,52 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:04:15 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/15 15:41:20 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/18 13:23:52 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins/builtins.h>
 
-static char	*join(t_token *args)
+static char	*join(char **args)
 {
 	char	*temp;
-	t_token	*token;
 	char	*result;
 
-	if (args == NULL)
+	if (args == NULL || *args == NULL)
 		return (ft_strdup(""));
-	result = ft_strdup(args->value);
-	token = args->next;
-	while (token != NULL)
+	result = ft_strdup(args[0]);
+	if (result == NULL)
+		return (NULL);
+	args++;
+	while (*args != NULL)
 	{
-		ft_asprintf(&temp, "%s %s", result, token->value);
+		ft_asprintf(&temp, "%s %s", result, *args);
 		free(result);
+		if (temp == NULL)
+			return (NULL);
 		result = temp;
-		token = token->next;
+		args++;
 	}
 	return (result);
 }
 
-int	echo(int argc, t_token *args)
+int	echo(int argc, char **args)
 {
 	char	*output;
 	char	print_nl;
 
-	if (args == NULL)
-	{
-		ft_putstr("\n");
-		return (0);
-	}
 	print_nl = 1;
-	if ((ft_strcmp(args->value, "-n") == 0))
+	if (args[0] != NULL && (ft_strcmp(args[0], "-n") == 0))
 	{
 		print_nl = 0;
-		args = args->next;
+		args++;
 	}
 	output = join(args);
+	if (output == NULL)
+	{
+		error("echo: could not parse arguments", NULL);
+		return (1);
+	}
 	if (print_nl == 0)
 		ft_putstr(output);
 	else

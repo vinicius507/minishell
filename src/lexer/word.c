@@ -31,7 +31,7 @@ static size_t	env_len(char *input, size_t *counter)
 	return (length);
 }
 
-static size_t	word_len(char *input)
+static size_t	word_len(char *input, int expand)
 {
 	char	quote;
 	size_t	length;
@@ -50,7 +50,8 @@ static size_t	word_len(char *input)
 			quote = input[counter];
 		else if (quote == input[counter])
 			quote = 0;
-		else if (input[counter] == '$' && (quote == 0 || quote == DOUBLE_QUOTE))
+		else if (expand != 0 && input[counter] == '$'
+				&& (quote == 0 || quote == DOUBLE_QUOTE))
 			length += env_len(&input[counter + 1], &counter);
 		else
 			length++;
@@ -79,7 +80,7 @@ static char	*env_copy(char *dest, char *src, size_t *counter)
 	return (ft_strchr(dest, '\0'));
 }
 
-static size_t	word_copy(char *src, char *dest)
+static size_t	word_copy(char *src, char *dest, int expand)
 {
 	char	quote;
 	size_t	counter;
@@ -90,13 +91,13 @@ static size_t	word_copy(char *src, char *dest)
 	{
 		if (quote == 0 && (is_metachar(src[counter]) != 0))
 			break ;
-		if (quote == 0
-			&& (is_quote(src[counter]) != 0)
+		if (quote == 0 && (is_quote(src[counter]) != 0)
 			&& (has_matching_quote(&(src[counter])) != 0))
 			quote = src[counter];
 		else if (quote == src[counter])
 			quote = 0;
-		else if (src[counter] == '$' && (quote == 0 || quote == DOUBLE_QUOTE))
+		else if (expand != 0 && src[counter] == '$'
+				&& (quote == 0 || quote == DOUBLE_QUOTE))
 			dest = env_copy(dest, src, &counter);
 		else
 		{
@@ -108,15 +109,15 @@ static size_t	word_copy(char *src, char *dest)
 	return (counter - 1);
 }
 
-char	*word(char *input, size_t *counter)
+char	*word(char *input, size_t *counter, int expand)
 {
 	char	*temp;
 	char	*word;
 	size_t	length;
 
-	length = word_len(input + *counter);
+	length = word_len(input + *counter, expand);
 	temp = ft_calloc(length + 1, sizeof(char));
-	*counter += word_copy(input + *counter, temp);
+	*counter += word_copy(input + *counter, temp, expand);
 	word = ft_strdup(temp);
 	free(temp);
 	return (word);

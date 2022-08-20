@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 18:43:07 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/10 17:36:22 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/18 13:12:52 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*prompt_string(void)
 			absolute_path + home_size);
 	}
 	else
-		ft_asprintf(&path, "%s@%s:%s$",
+		ft_asprintf(&path, "%s@%s:%s$ ",
 			get_env("USER")->value,
 			"minishell",
 			absolute_path);
