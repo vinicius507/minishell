@@ -21,6 +21,7 @@
 
 typedef struct s_shell
 {
+	char	*sh_name;
 	char	loop;
 	int		ret_code;
 	t_env	*env;

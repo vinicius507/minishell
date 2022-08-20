@@ -16,11 +16,13 @@
 
 t_shell	g_sh;
 
-static void	setup_shell(char **envp)
+static void	setup_shell(int argc, char **argv, char **envp)
 {
 	setup_env(envp);
+	g_sh.sh_name = argv[0];
 	g_sh.loop = 1;
 	g_sh.ret_code = 0;
+	(void)argc;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -28,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 	t_token		*tokens;
 	t_command	*command;
 
-	setup_shell(envp);
+	setup_shell(argc, argv, envp);
 	while (g_sh.loop == 1)
 	{
 		tokens = prompt();
@@ -48,7 +50,5 @@ int	main(int argc, char **argv, char **envp)
 		free_command(command);
 	}
 	free_env();
-	(void)argc;
-	(void)argv;
 	return (0);
 }
