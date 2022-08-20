@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 14:30:51 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/20 16:18:11 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:49:07 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,17 @@
 static size_t	env_len(char *input, size_t *counter)
 {
 	char	*key;
+	char	*temp;
 	size_t	length;
 	t_env	*env;
 
+	if (input[0] == '?')
+	{
+		temp = ft_itoa(g_sh.ret_code);
+		length = ft_strlen(temp);
+		free(temp);
+		return (length);
+	}
 	key = get_env_key(input);
 	if (key == NULL)
 		return (1);
@@ -27,8 +35,7 @@ static size_t	env_len(char *input, size_t *counter)
 	free(key);
 	if (env == NULL)
 		return (0);
-	length = ft_strlen(env->value);
-	return (length);
+	return (ft_strlen(env->value));
 }
 
 static size_t	word_len(char *input, int expand)
@@ -63,8 +70,17 @@ static size_t	word_len(char *input, int expand)
 static char	*env_copy(char *dest, char *src, size_t *counter)
 {
 	char	*key;
+	char	*temp;
 	t_env	*env;
 
+	if (src[*counter + 1] == '?')
+	{
+		temp = ft_itoa(g_sh.ret_code);
+		ft_strlcpy(dest, temp, ft_strlen(temp) + 1);
+		free(temp);
+		*counter += 1;
+		return (ft_strchr(dest, '\0'));
+	}
 	key = get_env_key(&src[*counter + 1]);
 	if (key == NULL)
 	{
