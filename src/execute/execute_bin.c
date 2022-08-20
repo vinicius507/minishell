@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <execute/execute.h>
 #include <sys/wait.h>
+#include <execute/execute.h>
+#include <signals/signals.h>
 
 static void	child_process(t_command *command)
 {
+	setup_signal(sig_child, SIGINT);
 	if (command->redirections != NULL
 		&& (handle_redirects(command->redirections) == -1))
 	{
@@ -47,6 +49,7 @@ void	execute_bin(t_command *command)
 		child_process(command);
 	else
 	{
+		setup_signal(sig_parent, SIGINT);
 		if (waitpid(pid, &status, 0) == -1)
 			perror("minishell");
 		g_sh.ret_code = (((status) & 0xff00) >> 8);
