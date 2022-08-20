@@ -38,8 +38,9 @@ t_redirection	*get_redirections(t_token *tokens)
 	redirections = NULL;
 	while (tokens != NULL)
 	{
-		if (tokens->type == TREDIRECT_OUT || tokens->type == TREDIRECT_IN
-			|| tokens->type == TREDIRECT_APPND || tokens->type == TREDIRECT_HDOC)
+		if (tokens->type == TREDIRECT_OUT
+			|| tokens->type == TREDIRECT_IN || tokens->type == TREDIRECT_APPND
+			|| tokens->type == TREDIRECT_HDOC)
 		{
 			redirections = new_redirection(tokens->type, redirections);
 			if (redirections == NULL)

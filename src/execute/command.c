@@ -8,6 +8,8 @@ static char	*find_bin_path(char *cmd)
 	char	*bin_path;
 	int		i;
 
+	if (cmd == NULL)
+		return (NULL);
 	if ((access(cmd, F_OK) == 0))
 		return (ft_strdup(cmd));
 	path = get_env("PATH");
@@ -69,6 +71,30 @@ void	free_command(t_command *command)
 	free(command);
 }
 
+static void	fallback_command(t_command *command)
+{
+	int	red_stdin;
+	int	red_stdout;
+
+	red_stdin = command_redirects_stdin(command);
+	red_stdout = command_redirects_stdout(command);
+	command->argc = 1;
+	if (red_stdout != 0)
+		command->argc = 2;
+	command->argv = ft_calloc(command->argc + 1, sizeof(char *));
+	if (command->argv == NULL)
+		return ;
+	if (red_stdin != 0)
+		command->argv[0] = "cat";
+	else if (red_stdout != 0)
+	{ 
+		command->argv[0] = "echo";
+		command->argv[1] = "-n";
+	}
+	else
+		command->argv[0] = "";
+}
+
 t_command	*new_command(t_token *token)
 {
 	t_command	*command;
@@ -76,14 +102,16 @@ t_command	*new_command(t_token *token)
 	command = ft_calloc(1, sizeof(t_command));
 	if (command == NULL)
 		return (NULL);
-	command->argv = build_argv(token);
-	command->argc = count_argc(token);
-	if ((is_builtin(command->argv[0]) == 0))
-		command->bin_path = find_bin_path(command->argv[0]);
 	command->envp = process_env();
 	command->redirections = get_redirections(token);
-	if (command->argv == NULL
-		|| command->envp == NULL)
+	command->argc = count_argc(token);
+	if (command->argc == 0 && command->redirections != NULL)
+		fallback_command(command);
+	else
+		command->argv = build_argv(token);
+	if (command->argv != NULL && (is_builtin(command->argv[0]) == 0))
+		command->bin_path = find_bin_path(command->argv[0]);
+	if (command->argv == NULL || command->envp == NULL)
 	{
 		free_command(command);
 		command = NULL;

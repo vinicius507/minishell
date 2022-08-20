@@ -14,6 +14,8 @@
 
 t_builtin	*get_builtin(const char *cmd)
 {
+	if (cmd == NULL)
+		return (NULL);
 	if ((ft_strcmp(cmd, "exit") == 0))
 		return (shell_exit);
 	if ((ft_strcmp(cmd, "pwd") == 0))

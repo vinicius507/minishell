@@ -70,4 +70,8 @@ t_command		*new_command(t_token *token);
 
 int				handle_redirects(t_redirection *redirections);
 
+int				command_redirects_stdout(t_command *command);
+
+int				command_redirects_stdin(t_command *command);
+
 #endif
