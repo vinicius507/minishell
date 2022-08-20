@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.h                                          :+:      :+:    :+:   */
+/*   sig_prompt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/20 18:31:02 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/20 18:31:13 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/20 19:03:30 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/20 19:05:23 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNALS_H
-# define SIGNALS_H
+#include <signals/signals.h>
+#include <readline/readline.h>
 
-# include <signal.h>
-# include <minishell.h>
-
-void	setup_signal(void (*handler)(int), int signal);
-
-void	sig_child(int signal);
-
-void	sig_parent(int signal);
-
-void	sig_prompt(int signal);
-
-#endif
+void	sig_prompt(int signal)
+{
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	(void)signal;
+}

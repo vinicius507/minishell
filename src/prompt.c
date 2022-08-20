@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <minishell.h>
+#include <signals/signals.h>
 #include <readline/history.h>
 #include <readline/readline.h>
 
@@ -45,6 +46,7 @@ t_token	*prompt(void)
 	char	*prompt;
 	t_token	*tokens;
 
+	setup_signal(sig_prompt, SIGINT);
 	prompt = prompt_string();
 	input = readline(prompt);
 	free(prompt);

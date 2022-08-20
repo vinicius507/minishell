@@ -13,8 +13,8 @@ SRCS = main.c exit.c pwd.c lex.c echo.c env.c set_env.c \
 	unset_env.c unset.c cd.c prompt.c tokens.c word.c char.c \
 	get_env_key.c redirect.c is_builtin.c args.c execute_bin.c \
 	execute_builtin.c error.c handle_redirects.c command.c \
-	redirections.c heredoc.c command_utils.c signals.c parent.c \
-	child.c
+	redirections.c heredoc.c command_utils.c signals.c sig_child.c \
+	sig_parent.c sig_prompt.c
 
 OBJ_DIR = ./objs
 OBJECTS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
