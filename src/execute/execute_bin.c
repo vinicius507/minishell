@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 12:31:08 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/19 16:40:43 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:52:17 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ void	execute_bin(t_command *command)
 	int		pid;
 	int		status;
 
+	if (command->bin_path == NULL && command->redirections == NULL)
+	{
+		error(command->argv[0], "command not found");
+		return ;
+	}
 	pid = fork();
 	if (pid == -1)
 	{
