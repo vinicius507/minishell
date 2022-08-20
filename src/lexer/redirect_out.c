@@ -15,9 +15,17 @@
 
 char	*redirect(char *input, size_t *counter)
 {
+	char	*fname;
+
 	while ((is_redirect(input[*counter]) != 0))
 		*counter += 1;
 	while ((ft_isspace(input[*counter]) != 0))
 		*counter += 1;
-	return (word(input, counter, 1));
+	fname = word(input, counter, 1);
+	if (fname != NULL && (ft_strcmp(fname, "") == 0))
+	{
+		free(fname);
+		return (NULL);
+	}
+	return (fname);
 }

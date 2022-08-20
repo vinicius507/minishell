@@ -36,6 +36,21 @@ static char	*get_token_value(t_type type, char *input, size_t *counter)
 	return (word(input, counter, 1));
 }
 
+static t_token	*handle_lex_errors(t_type type, t_token *tokens, char *ref)
+{
+	if (type == TREDIRECT_OUT)
+		ref = ">";
+	else if (type == TREDIRECT_IN)
+		ref = "<";
+	else if (type == TREDIRECT_APPND)
+		ref = ">>";
+	else if (type == TREDIRECT_HDOC)
+		ref = "<<";
+	free_tokens(tokens);
+	error("syntax error near token", ref);
+	return (NULL);
+}
+
 t_token	*lex(char *input)
 {
 	size_t	counter;
@@ -56,10 +71,7 @@ t_token	*lex(char *input)
 		type = get_token_type(&(input[counter]));
 		value = get_token_value(type, input, &counter);
 		if (value == NULL)
-		{
-			free_tokens(start);
-			return (NULL);
-		}
+			return (handle_lex_errors(type, start, token->value));
 		token = new_token(type, value, token);
 		if (start == NULL)
 			start = token;

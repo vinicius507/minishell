@@ -14,13 +14,21 @@ static void	check_line_and_free(char *line, char *delim)
 
 static char	*get_delimiter(char *input, size_t *counter, char *quote)
 {
+	char	*delim;
+
 	while ((is_redirect(input[*counter]) != 0))
 		*counter += 1;
 	while ((ft_isspace(input[*counter]) != 0))
 		*counter += 1;
 	if ((is_quote(input[*counter]) != 0) && has_matching_quote(&(input[*counter])))
 		*quote = input[*counter];
-	return (word(input, counter, 0));
+	delim = word(input, counter, 0);
+	if (delim != NULL && (ft_strcmp(delim, "") == 0))
+	{
+		free(delim);
+		return (NULL);
+	}
+	return (delim);
 }
 
 static char	*turn_line_into_word(char *line)
