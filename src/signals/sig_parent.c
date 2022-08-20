@@ -14,6 +14,9 @@
 
 void	sig_parent(int signal)
 {
-	printf("\n");
+	if (signal == SIGINT)
+		printf("\n");
+	else if (signal == SIGQUIT)
+		ft_dprintf(STDERR_FILENO, "Quit\n");
 	(void)signal;
 }
