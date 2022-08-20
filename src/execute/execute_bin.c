@@ -29,6 +29,14 @@ static void	child_process(t_command *command)
 	exit(1);
 }
 
+static void	set_ret_code(int wstatus)
+{
+	if (WIFEXITED(wstatus))
+		g_sh.ret_code = WEXITSTATUS(wstatus);
+	else if (WIFSIGNALED(wstatus))
+		g_sh.ret_code = WTERMSIG(wstatus) + 128;
+}
+
 void	execute_bin(t_command *command)
 {
 	int		pid;
@@ -54,6 +62,6 @@ void	execute_bin(t_command *command)
 		setup_signal(sig_parent, SIGQUIT);
 		if (waitpid(pid, &status, 0) == -1)
 			perror("minishell");
-		g_sh.ret_code = (((status) & 0xff00) >> 8);
+		set_ret_code(status);
 	}
 }
