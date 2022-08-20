@@ -64,16 +64,19 @@ static int	set_stdin_fd(t_redirection *redirections)
 	fd = -1;
 	while (redirections != NULL)
 	{
-		if (redirections->type == RED_STDIN)
-			fd = handle_red_stdin(fd, redirections);
-		else if (redirections->type == RED_HDOC)
-			fd = handle_red_heredoc(fd, redirections);
-		if (fd == ERRO)
-			return (ERRO);
-		dup_fd = dup2(fd, STDIN_FILENO);
-		close(fd);
-		if (dup_fd == -1)
-			return (ERRO);
+		if (redirections->type == RED_STDIN || redirections->type == RED_HDOC)
+		{
+			if (redirections->type == RED_STDIN)
+				fd = handle_red_stdin(fd, redirections);
+			else if (redirections->type == RED_HDOC)
+				fd = handle_red_heredoc(fd, redirections);
+			if (fd == ERRO)
+				return (ERRO);
+			dup_fd = dup2(fd, STDIN_FILENO);
+			close(fd);
+			if (dup_fd == -1)
+				return (ERRO);
+		}
 		redirections = redirections->next;
 	}
 	unlink(HDOC_TMPFILE);
