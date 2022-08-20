@@ -17,6 +17,7 @@
 static void	child_process(t_command *command)
 {
 	setup_signal(sig_child, SIGINT);
+	setup_signal(sig_child, SIGQUIT);
 	if (command->redirections != NULL
 		&& (handle_redirects(command->redirections) == -1))
 	{
@@ -50,6 +51,7 @@ void	execute_bin(t_command *command)
 	else
 	{
 		setup_signal(sig_parent, SIGINT);
+		setup_signal(sig_parent, SIGQUIT);
 		if (waitpid(pid, &status, 0) == -1)
 			perror("minishell");
 		g_sh.ret_code = (((status) & 0xff00) >> 8);

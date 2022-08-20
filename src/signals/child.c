@@ -14,7 +14,9 @@
 
 void	sig_child(int signal)
 {
-	g_sh.ret_code = 130;
-	exit(130);
-	(void)signal;
+	if (signal == SIGINT)
+		g_sh.ret_code = 130;
+	else if (signal == SIGQUIT)
+		g_sh.ret_code = 131;
+	exit(g_sh.ret_code);
 }
