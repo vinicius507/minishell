@@ -52,6 +52,7 @@ static int	set_stdout_fd(t_redirection *redirections)
 		}
 		redirections = redirections->next;
 	}
+	close(fd);
 	return (fd);
 }
 
@@ -71,6 +72,7 @@ static int	handle_red_stdin(int fd, t_redirection *redirection)
 	if (redirection->type == RED_HDOC)
 	{
 		ft_putstr_fd(redirection->content, fd);
+		close(fd);
 		fd = open(HDOC_TMPFILE, O_RDONLY, 0);
 		if (fd == -1)
 			return (ERRO);
@@ -98,6 +100,7 @@ static int	set_stdin_fd(t_redirection *redirections)
 		}
 		redirections = redirections->next;
 	}
+	close(fd);
 	unlink(HDOC_TMPFILE);
 	return (fd);
 }

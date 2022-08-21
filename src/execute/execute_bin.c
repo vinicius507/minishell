@@ -24,6 +24,8 @@ static void	child_process(t_command *command)
 		perror("minishell");
 		exit(1);
 	}
+	if (command->bin_path == NULL)
+		exit(0);
 	execve(command->bin_path, command->argv, command->envp);
 	perror("minishell");
 	exit(1);

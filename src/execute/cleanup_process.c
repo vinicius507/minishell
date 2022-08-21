@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   child.c                                            :+:      :+:    :+:   */
+/*   cleanup_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/20 18:47:18 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/20 18:47:18 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/21 00:15:41 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/21 00:15:44 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signals/signals.h>
 #include <execute/execute.h>
 
-void	sig_child(int signal)
+void	cleanup_process(void)
 {
-	cleanup_process();
-	exit(signal);
+	int	fd;
+
+	fd = open(HDOC_TMPFILE, O_RDONLY | O_CREAT);
+	if (fd < 0)
+		return ;
+	while (fd > STDERR_FILENO)
+		close(fd--);
 }

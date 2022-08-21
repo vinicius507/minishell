@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <signals/signals.h>
+#include <execute/execute.h>
 
 void	sig_parent(int signal)
 {
@@ -18,5 +19,6 @@ void	sig_parent(int signal)
 		printf("\n");
 	else if (signal == SIGQUIT)
 		ft_dprintf(STDERR_FILENO, "Quit\n");
+	cleanup_process();
 	(void)signal;
 }
