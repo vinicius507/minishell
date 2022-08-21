@@ -53,31 +53,21 @@ static void	here_doc_process(int pipe_fd[2], char *delim, char quote)
 static char	*get_content_from_pipe(int pipe_fd[2])
 {
 	int		res;
-	char	*temp;
 	char	*line;
 	char	*content;
 
-	content = NULL;
-	res = get_next_line(pipe_fd[0], &line);
+	res = get_next_line(pipe_fd[0], &content);
 	while (res != END_OF_FILE)
 	{
+		res = get_next_line(pipe_fd[0], &line);
 		if (res == GNL_ERROR)
 		{
 			free(content);
 			return (NULL);
 		}
+		content = join_line(content, line, '\'');
 		if (content == NULL)
-			ft_asprintf(&content, "%s\n", line);
-		else
-		{ 
-			ft_asprintf(&temp, "%s\n%s", content, line);
-			free(content);
-			content = temp;
-			if (content == NULL)
-				return (NULL);
-		}
-		free(line);
-		res = get_next_line(pipe_fd[0], &line);
+			return (NULL);
 	}
 	return (content);
 }
@@ -93,10 +83,10 @@ static char	*handle_child_process_quit(int pid, int pipe_fd[2])
 	if ((waitpid(pid, &status, 0) == -1))
 		perror(g_sh.sh_name);
 	if (WIFEXITED(status))
-	{ 
+	{
 		g_sh.ret_code = WEXITSTATUS(status);
 		if (g_sh.ret_code == 0)
-		{ 
+		{
 			content = get_content_from_pipe(pipe_fd);
 			if (content == NULL)
 				error("error while reading from heredoc", NULL);
@@ -125,7 +115,7 @@ char	*here_doc(char *input, size_t *counter)
 	{
 		perror(g_sh.sh_name);
 		return (NULL);
-	};
+	}
 	pid = fork();
 	if (pid == -1)
 		perror(g_sh.sh_name);
