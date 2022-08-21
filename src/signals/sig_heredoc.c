@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.h                                          :+:      :+:    :+:   */
+/*   sig_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/20 18:31:02 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/20 18:31:13 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/20 20:06:30 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/20 20:06:31 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNALS_H
-# define SIGNALS_H
+#include <signals/signals.h>
+#include <readline/readline.h>
 
-# include <signal.h>
-# include <minishell.h>
+void	sig_heredoc_child(int signal)
+{
+	if (signal == SIGINT)
+	{
+		printf("\n");
+		exit(signal);
+	}
+}
 
-void	setup_signal(void (*handler)(int), int signal);
-
-void	sig_child(int signal);
-
-void	sig_parent(int signal);
-
-void	sig_prompt(int signal);
-
-void	sig_heredoc_child(int signal);
-
-void	sig_heredoc_parent(int signal);
-
-#endif
+void	sig_heredoc_parent(int signal)
+{
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	(void)signal;
+}
