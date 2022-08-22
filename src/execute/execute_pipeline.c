@@ -66,7 +66,7 @@ void	spawn_proc(t_pipe_proc *proc, int proc_fd[2], int std_fd[2])
 	close(proc_fd[STDOUT_FILENO]);
 	proc->pid = fork();
 	if (proc->pid == 0)
-	{ 
+	{
 		close(std_fd[STDIN_FILENO]);
 		close(std_fd[STDOUT_FILENO]);
 		execute_pipe_child(proc, proc_fd);

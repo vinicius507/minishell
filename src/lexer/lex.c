@@ -60,7 +60,7 @@ static t_token	*handle_lex_errors(t_type type, t_token *tokens, t_token *token)
 	else if (type == TREDIRECT_HDOC && g_sh.ret_code != 130)
 		ref = "<<";
 	else if (type == TREDIRECT_HDOC && g_sh.ret_code == 130)
-	{ 
+	{
 		free_tokens(tokens);
 		return (NULL);
 	}
