@@ -67,4 +67,6 @@ int				command_redirects_stdout(t_command *command);
 
 int				command_redirects_stdin(t_command *command);
 
+void			cleanup_process(void);
+
 #endif

@@ -44,8 +44,10 @@ static t_token	*handle_lex_errors(t_type type, t_token *tokens, char *ref)
 		ref = "<";
 	else if (type == TREDIRECT_APPND)
 		ref = ">>";
-	else if (type == TREDIRECT_HDOC)
+	else if (type == TREDIRECT_HDOC && g_sh.ret_code != 130)
 		ref = "<<";
+	else if (type == TREDIRECT_HDOC && g_sh.ret_code == 130)
+		return (NULL);
 	free_tokens(tokens);
 	error("syntax error near token", ref);
 	return (NULL);

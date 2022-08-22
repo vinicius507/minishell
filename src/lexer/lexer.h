@@ -63,4 +63,12 @@ char	*redirect(char *input, size_t *counter);
 
 char	*here_doc(char *input, size_t *counter);
 
+void	check_line_and_free(char *line, char *delim);
+
+char	*get_delimiter(char *input, size_t *counter, char *quote);
+
+char	*turn_line_into_word(char *line);
+
+char	*join_line(char *content, char *line, char quote);
+
 #endif

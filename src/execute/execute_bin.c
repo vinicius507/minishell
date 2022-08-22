@@ -10,20 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <execute/execute.h>
 #include <sys/wait.h>
+#include <execute/execute.h>
+#include <signals/signals.h>
 
 static void	child_process(t_command *command)
 {
+	setup_signal(sig_child, SIGINT);
+	setup_signal(sig_child, SIGQUIT);
 	if (command->redirections != NULL
 		&& (handle_redirects(command->redirections) == -1))
 	{
 		perror("minishell");
 		exit(1);
 	}
+	if (command->bin_path == NULL)
+		exit(0);
 	execve(command->bin_path, command->argv, command->envp);
 	perror("minishell");
 	exit(1);
+}
+
+static void	set_ret_code(int wstatus)
+{
+	if (WIFEXITED(wstatus))
+		g_sh.ret_code = WEXITSTATUS(wstatus);
+	else if (WIFSIGNALED(wstatus))
+		g_sh.ret_code = WTERMSIG(wstatus) + 128;
 }
 
 void	execute_bin(t_command *command)
@@ -47,8 +60,10 @@ void	execute_bin(t_command *command)
 		child_process(command);
 	else
 	{
+		setup_signal(sig_parent, SIGINT);
+		setup_signal(sig_parent, SIGQUIT);
 		if (waitpid(pid, &status, 0) == -1)
 			perror("minishell");
-		g_sh.ret_code = (((status) & 0xff00) >> 8);
+		set_ret_code(status);
 	}
 }
