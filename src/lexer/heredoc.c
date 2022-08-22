@@ -88,18 +88,14 @@ static char	*handle_child_process_quit(int pid, int pipe_fd[2])
 	if (WIFEXITED(status))
 	{
 		g_sh.ret_code = WEXITSTATUS(status);
-		content = get_content_from_pipe(pipe_fd);
 		if (g_sh.ret_code == 0)
 		{
+			content = get_content_from_pipe(pipe_fd);
 			if (content == NULL)
 				error(NULL, NULL);
 		}
 		else
-		{ 
-			free(content);
-			content = NULL;
 			g_sh.ret_code = 130;
-		}
 	}
 	close(pipe_fd[0]);
 	return (content);
