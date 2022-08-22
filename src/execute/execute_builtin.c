@@ -15,27 +15,29 @@
 
 int	execute_builtin(t_command *command)
 {
-	int			stdout_fd;
+	int			std_fd[2];
 	t_builtin	*builtin;
 	int			return_code;
 
-	stdout_fd = -1;
 	if (command->redirections != NULL)
 	{
-		stdout_fd = dup(STDOUT_FILENO);
+		std_fd[STDIN_FILENO] = dup(STDIN_FILENO);
+		std_fd[STDOUT_FILENO] = dup(STDOUT_FILENO);
 		handle_redirects(command->redirections);
 	}
 	builtin = get_builtin(command->argv[0]);
 	if (builtin == NULL)
 	{
 		error(command->argv[0], "could not execute builtin");
-		return (-1);
+		return (2);
 	}
 	return_code = builtin(command->argc - 1, command->argv + 1);
-	if (stdout_fd >= 0)
+	if (command->redirections != NULL)
 	{
-		dup2(stdout_fd, STDOUT_FILENO);
-		close(stdout_fd);
+		dup2(std_fd[STDIN_FILENO], STDIN_FILENO);
+		dup2(std_fd[STDOUT_FILENO], STDOUT_FILENO);
+		close(std_fd[STDIN_FILENO]);
+		close(std_fd[STDOUT_FILENO]);
 	}
 	return (return_code);
 }

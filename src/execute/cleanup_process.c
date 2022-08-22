@@ -21,4 +21,5 @@ void	cleanup_process(void)
 		return ;
 	while (fd > STDERR_FILENO)
 		close(fd--);
+	unlink(HDOC_TMPFILE);
 }

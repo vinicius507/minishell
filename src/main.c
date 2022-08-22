@@ -40,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			pipeline = build_pipeline(tokens);
 			if (pipeline != NULL)
-			{ 
+			{
 				execute_pipeline(pipeline);
 				free_pipeline(pipeline);
 			}

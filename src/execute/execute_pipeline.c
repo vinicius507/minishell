@@ -40,6 +40,7 @@ void	execute_pipe_child(t_pipe_proc *proc, int proc_fd[2])
 	setup_signal(sig_child, SIGINT);
 	setup_signal(sig_child, SIGQUIT);
 	close(proc_fd[STDIN_FILENO]);
+	cleanup_process();
 	if ((is_builtin(proc->command->argv[0]) != 0))
 		proc->exit_code = execute_builtin(proc->command);
 	else
@@ -65,7 +66,11 @@ void	spawn_proc(t_pipe_proc *proc, int proc_fd[2], int std_fd[2])
 	close(proc_fd[STDOUT_FILENO]);
 	proc->pid = fork();
 	if (proc->pid == 0)
+	{ 
+		close(std_fd[STDIN_FILENO]);
+		close(std_fd[STDOUT_FILENO]);
 		execute_pipe_child(proc, proc_fd);
+	}
 }
 
 void	wait_procs(t_pipe_proc *procs)
