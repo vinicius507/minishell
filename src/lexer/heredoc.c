@@ -56,16 +56,17 @@ static char	*get_content_from_pipe(int pipe_fd[2])
 	char	*line;
 	char	*content;
 
-	res = get_next_line(pipe_fd[0], &content);
+	content = ft_strdup("");
+	res = get_next_line(pipe_fd[0], &line);
 	while (res != END_OF_FILE)
 	{
+		content = join_line(content, line, SINGLE_QUOTE);
 		res = get_next_line(pipe_fd[0], &line);
 		if (res == GNL_ERROR)
 		{
 			free(content);
 			return (NULL);
 		}
-		content = join_line(content, line, '\'');
 		if (content == NULL)
 			return (NULL);
 	}
