@@ -70,6 +70,8 @@ static char	*get_content_from_pipe(int pipe_fd[2])
 		if (content == NULL)
 			return (NULL);
 	}
+	if (line != NULL)
+		free(line);
 	return (content);
 }
 
