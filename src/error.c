@@ -21,3 +21,9 @@ void	error(char *message, char *detail)
 	else
 		ft_dprintf(STDERR_FILENO, "%s: %s: %s\n", g_sh.sh_name, message, detail);
 }
+
+void	syntax_error(char *token)
+{
+	error("syntax error near token", token);
+	g_sh.ret_code = 2;
+}

@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   execute_simple_cmd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/26 20:39:22 by jefernan          #+#    #+#             */
-/*   Updated: 2022/08/18 13:15:06 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/08/22 04:28:22 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/08/22 04:28:23 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <execute/execute.h>
+#include <builtins/builtins.h>
 
-# include <libft.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <env/env.h>
-# include <lexer/lexer.h>
-
-typedef struct s_shell
+void	execute_simple_cmd(t_token *tokens)
 {
-	char	*sh_name;
-	char	loop;
-	int		ret_code;
-	t_env	*env;
-}	t_shell;
+	t_command	*command;
 
-extern t_shell	g_sh;
-
-t_token	*prompt(void);
-
-void	error(char *message, char *detail);
-
-void	syntax_error(char *token);
-
-#endif
+	command = new_command(tokens);
+	if (command == NULL)
+		return ;
+	if ((is_builtin(command->argv[0]) != 0))
+		g_sh.ret_code = execute_builtin(command);
+	else
+		execute_bin(command);
+	free_command(command);
+}

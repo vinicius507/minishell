@@ -96,7 +96,8 @@ t_command	*new_command(t_token *token)
 	command->argv = build_argv(token);
 	if (command->argv != NULL && (is_builtin(command->argv[0]) == 0))
 		command->bin_path = find_bin_path(command->argv[0]);
-	if (command->argv == NULL || command->envp == NULL)
+	if (command->argv == NULL || command->envp == NULL
+		|| (command->redirections == NULL && command->argc == 0))
 	{
 		free_command(command);
 		command = NULL;

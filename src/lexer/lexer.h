@@ -19,6 +19,7 @@
 # define SINGLE_QUOTE '\''
 # define REDIRECT_OUT '>'
 # define REDIRECT_IN '<'
+# define PIPE '|'
 
 typedef enum e_type
 {
@@ -27,6 +28,7 @@ typedef enum e_type
 	TREDIRECT_IN,
 	TREDIRECT_APPND,
 	TREDIRECT_HDOC,
+	TPIPE,
 	TCOUNT,
 }	t_type;
 
@@ -35,6 +37,7 @@ typedef struct s_token
 	t_type			type;
 	char			*value;
 	struct s_token	*next;
+	struct s_token	*prev;
 }	t_token;
 
 t_token	*new_token(t_type type, char *value, t_token *previous);

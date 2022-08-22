@@ -43,6 +43,15 @@ typedef struct s_command
 	t_redirection		*redirections;
 }	t_command;
 
+typedef struct s_pipe_proc
+{
+	int					pid;
+	int					exit_code;
+	t_command			*command;
+	struct s_pipe_proc	*prev;
+	struct s_pipe_proc	*next;
+}	t_pipe_proc;
+
 int				count_argc(t_token *tokens);
 
 char			**build_argv(t_token *tokens);
@@ -68,5 +77,17 @@ int				command_redirects_stdout(t_command *command);
 int				command_redirects_stdin(t_command *command);
 
 void			cleanup_process(void);
+
+void			execute_simple_cmd(t_token *tokens);
+
+int				has_pipes(t_token *tokens);
+
+void			free_pipeline(t_pipe_proc *pipeline);
+
+t_pipe_proc		*new_pipeline(t_token *tokens, t_pipe_proc *prev);
+
+t_pipe_proc		*build_pipeline(t_token *tokens);
+
+void			execute_pipeline(t_pipe_proc *pipeline);
 
 #endif

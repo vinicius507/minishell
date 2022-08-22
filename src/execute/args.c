@@ -21,6 +21,8 @@ int	count_argc(t_token *tokens)
 		return (0);
 	while (tokens != NULL)
 	{
+		if (tokens->type == TPIPE)
+			break ;
 		if (tokens->type == TWORD && (ft_strcmp(tokens->value, "") != 0))
 			argc++;
 		tokens = tokens->next;
@@ -41,6 +43,8 @@ char	**build_argv(t_token *tokens)
 	counter = 0;
 	while (counter < len)
 	{
+		if (tokens->type == TPIPE)
+			break ;
 		if (tokens->type == TWORD && (ft_strcmp(tokens->value, "") != 0))
 			argv[counter++] = tokens->value;
 		tokens = tokens->next;

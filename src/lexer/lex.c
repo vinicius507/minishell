@@ -23,11 +23,16 @@ static t_type	get_token_type(char *input)
 		return (TREDIRECT_OUT);
 	else if (input[0] == REDIRECT_IN)
 		return (TREDIRECT_IN);
+	else if (input[0] == PIPE)
+		return (TPIPE);
 	return (TWORD);
 }
 
-static char	*get_token_value(t_type type, char *input, size_t *counter)
+static char	*get_token_value(t_type type, t_token *last,
+		char *input, size_t *counter)
 {
+	if (type == TPIPE && (last == NULL || last->type == TPIPE))
+		return (NULL);
 	if (type == TREDIRECT_OUT || type == TREDIRECT_IN
 		|| type == TREDIRECT_APPND)
 		return (redirect(input, counter));
@@ -36,20 +41,28 @@ static char	*get_token_value(t_type type, char *input, size_t *counter)
 	return (word(input, counter, 1));
 }
 
-static t_token	*handle_lex_errors(t_type type, t_token *tokens, char *ref)
+static t_token	*handle_lex_errors(t_type type, t_token *tokens, t_token *token)
 {
+	char	*ref;
+
+	if (token == NULL)
+		ref = NULL;
+	else
+		ref = token->value;
 	if (type == TREDIRECT_OUT)
 		ref = ">";
 	else if (type == TREDIRECT_IN)
 		ref = "<";
 	else if (type == TREDIRECT_APPND)
 		ref = ">>";
+	else if (type == TPIPE)
+		ref = "|";
 	else if (type == TREDIRECT_HDOC && g_sh.ret_code != 130)
 		ref = "<<";
 	else if (type == TREDIRECT_HDOC && g_sh.ret_code == 130)
 		return (NULL);
 	free_tokens(tokens);
-	error("syntax error near token", ref);
+	syntax_error(ref);
 	return (NULL);
 }
 
@@ -71,9 +84,9 @@ t_token	*lex(char *input)
 		if (ft_isspace(input[counter]) != 0 && ++counter)
 			continue ;
 		type = get_token_type(&(input[counter]));
-		value = get_token_value(type, input, &counter);
+		value = get_token_value(type, token, input, &counter);
 		if (value == NULL)
-			return (handle_lex_errors(type, start, token->value));
+			return (handle_lex_errors(type, start, token));
 		token = new_token(type, value, token);
 		if (start == NULL)
 			start = token;

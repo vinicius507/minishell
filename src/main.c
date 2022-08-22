@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:22:43 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/19 20:49:49 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/22 04:28:42 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	setup_shell(int argc, char **argv, char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_token		*tokens;
-	t_command	*command;
+	t_pipe_proc	*pipeline;
 
 	setup_shell(argc, argv, envp);
 	while (g_sh.loop == 1)
@@ -36,18 +36,18 @@ int	main(int argc, char **argv, char **envp)
 		tokens = prompt();
 		if (tokens == NULL)
 			continue ;
-		command = new_command(tokens);
-		if (command == NULL)
+		if ((has_pipes(tokens) != 0))
 		{
-			free_tokens(tokens);
-			continue ;
+			pipeline = build_pipeline(tokens);
+			if (pipeline != NULL)
+			{ 
+				execute_pipeline(pipeline);
+				free_pipeline(pipeline);
+			}
 		}
-		if ((is_builtin(command->argv[0]) != 0))
-			g_sh.ret_code = execute_builtin(command);
 		else
-			execute_bin(command);
+			execute_simple_cmd(tokens);
 		free_tokens(tokens);
-		free_command(command);
 	}
 	free_env();
 	return (0);
