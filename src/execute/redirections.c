@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:31:43 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/20 16:31:44 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:16:16 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_redirection	*get_redirections(t_token *tokens)
 
 	start = NULL;
 	redirections = NULL;
-	while (tokens != NULL)
+	while (tokens != NULL && tokens->type != TPIPE)
 	{
 		if (tokens->type == TREDIRECT_OUT
 			|| tokens->type == TREDIRECT_IN || tokens->type == TREDIRECT_APPND
