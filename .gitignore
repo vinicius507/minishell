@@ -54,4 +54,3 @@ dkms.conf
 .cache/
 .vscode/
 compile_commands.json
-minishell
