@@ -59,7 +59,9 @@
           clang-tools_12
           gnumake
           norminette
+          readline
           valgrind
+          pkgs.libft
         ];
       };
     });

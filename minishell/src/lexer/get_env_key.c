@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <lexer/lexer.h>
-#include <minishell.h>
+#include "lexer.h"
+#include "../minishell.h"
 
 char	*get_env_key(char *str)
 {

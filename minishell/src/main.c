@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
-#include <builtins/builtins.h>
-#include <execute/execute.h>
+#include "minishell.h"
+#include "builtins/builtins.h"
+#include "execute/execute.h"
 
 t_shell	g_sh;
 

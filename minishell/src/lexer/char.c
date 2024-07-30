@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <lexer/lexer.h>
-#include <minishell.h>
+#include "lexer.h"
+#include "../minishell.h"
 
 int	is_redirect(char c)
 {

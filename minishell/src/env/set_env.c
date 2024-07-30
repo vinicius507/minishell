@@ -6,12 +6,12 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:39:40 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 18:39:22 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:23:02 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <env/env.h>
-#include <minishell.h>
+#include "env.h"
+#include "../minishell.h"
 
 static	t_env	*new_env(const char *key, const char *value, t_env *prev)
 {

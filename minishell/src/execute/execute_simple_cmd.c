@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <execute/execute.h>
-#include <builtins/builtins.h>
+#include "execute.h"
+#include "../builtins/builtins.h"
 
 void	execute_simple_cmd(t_token *tokens)
 {

@@ -6,14 +6,14 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 20:54:19 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/20 16:31:22 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:15:22 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 # define EXECUTE_H
 
-# include <minishell.h>
+# include "../minishell.h"
 # include <fcntl.h>
 
 # define HDOC_TMPFILE "/tmp/heredoc"

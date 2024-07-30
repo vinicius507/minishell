@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <execute/execute.h>
-#include <builtins/builtins.h>
+#include "execute.h"
+#include "../builtins/builtins.h"
 
 int	execute_builtin(t_command *command)
 {

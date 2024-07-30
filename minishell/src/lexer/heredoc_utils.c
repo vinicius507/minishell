@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <lexer/lexer.h>
-#include <minishell.h>
+#include "lexer.h"
+#include "../minishell.h"
 
 void	check_line_and_free(char *line, char *delim)
 {

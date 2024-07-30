@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <execute/execute.h>
-#include <builtins/builtins.h>
+#include "execute.h"
+#include "../builtins/builtins.h"
 
 static char	*find_bin_path(char *cmd)
 {

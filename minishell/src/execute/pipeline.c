@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <execute/execute.h>
+#include "execute.h"
 
 int	has_pipes(t_token *tokens)
 {

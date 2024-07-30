@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <lexer/lexer.h>
-#include <minishell.h>
+#include "lexer.h"
+#include "../minishell.h"
 
 static size_t	env_len(char *input, size_t *counter)
 {

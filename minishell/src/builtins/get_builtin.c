@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/builtins.h>
+#include "builtins.h"
 
 t_builtin	*get_builtin(const char *cmd)
 {

@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include <sys/wait.h>
-#include <lexer/lexer.h>
-#include <minishell.h>
-#include <signals/signals.h>
+#include "lexer.h"
+#include "../minishell.h"
+#include "../signals/signals.h"
 #include <readline/history.h>
 #include <readline/readline.h>
 

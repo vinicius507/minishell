@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signals/signals.h>
-#include <execute/execute.h>
+#include "signals.h"
+#include "../execute/execute.h"
 
 void	sig_child(int signal)
 {

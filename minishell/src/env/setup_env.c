@@ -6,12 +6,12 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:47:03 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/02 18:17:01 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:23:08 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <env/env.h>
-#include <minishell.h>
+#include "env.h"
+#include "../minishell.h"
 
 void	setup_env(char **envp)
 {

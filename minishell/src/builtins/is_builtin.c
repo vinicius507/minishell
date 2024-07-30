@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/builtins.h>
+#include "builtins.h"
 
 int	is_builtin(char *cmd)
 {

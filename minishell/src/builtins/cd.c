@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/builtins.h>
+#include "builtins.h"
 #include <unistd.h>
 
 static void	update_pwd_envs(void)

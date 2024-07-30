@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include <sys/wait.h>
-#include <execute/execute.h>
-#include <signals/signals.h>
+#include "execute.h"
+#include "../signals/signals.h"
 
 static void	child_process(t_command *command)
 {

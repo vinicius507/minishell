@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signals/signals.h>
-#include <execute/execute.h>
+#include "signals.h"
+#include "../execute/execute.h"
 #include <readline/readline.h>
 
 void	sig_heredoc_child(int signal)

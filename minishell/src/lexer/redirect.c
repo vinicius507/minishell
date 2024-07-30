@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <lexer/lexer.h>
-#include <minishell.h>
+#include "lexer.h"
+#include "../minishell.h"
 
 char	*redirect(char *input, size_t *counter)
 {

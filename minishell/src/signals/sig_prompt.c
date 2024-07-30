@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signals/signals.h>
+#include "signals.h"
 #include <readline/readline.h>
 
 void	sig_prompt(int signal)

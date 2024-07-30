@@ -1,11 +1,21 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/07/30 09:50:45 by vgoncalv          #+#    #+#              #
+#    Updated: 2024/07/30 10:34:53 by vgoncalv         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-LIBFT_DIR ?= ./libft
-LIBFT = $(LIBFT_DIR)/lib/libft.a
-LIBS = -L$(LIBFT_DIR)/lib -lft -lreadline
-INCLUDES = -I$(LIBFT_DIR)/include -I./src
+LIBS := -lft -lreadline
+
 RM = rm -rf
 
 vpath %.c src src/builtins src/env src/lexer src/execute src/signals
@@ -19,28 +29,41 @@ SRCS = main.c exit.c pwd.c lex.c echo.c env.c set_env.c \
 	cleanup_process.c execute_simple_cmd.c pipeline.c execute_pipeline.c \
 	utils.c
 
-OBJ_DIR = ./objs
-OBJECTS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
+OBJS_DIR = ./objs
+OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
+
+ifneq ($(LIBFT_DIR),)
+	CFLAGS += -I $(LIBFT_DIR)/include
+	LIBFT = $(LIBFT_DIR)/libft.a
+	LIBS := -L$(LIBFT_DIR) $(LIBS)
+endif
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJECTS)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJECTS) $(LIBS) -o $@
+$(NAME): $(OBJS) $(if $(LIBFT_DIR), $(LIBFT))
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $@
 
 $(LIBFT):
-	make -C ./libft/
+	make -C $(LIBFT_DIR)
 
-$(OBJ_DIR)/%.o: %.c 
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJS_DIR):
+	mkdir -p $@
 
 clean:
-	$(RM) $(OBJ_DIR)
-	make clean -C ./libft
+	$(RM) $(OBJS_DIR)
+ifdef LIBFT_DIR
+	make clean -C $(LIBFT_DIR)
+endif
 
 fclean:
-	$(RM) $(OBJ_DIR)
+	$(RM) $(OBJS_DIR)
 	$(RM) $(NAME)
-	make fclean -C ./libft
+ifdef LIBFT_DIR
+	make fclean -C $(LIBFT_DIR)
+endif
+
 
 re: fclean all

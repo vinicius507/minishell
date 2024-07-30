@@ -6,14 +6,14 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:21:28 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/08/20 16:18:28 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:15:09 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-# include <minishell.h>
+# include "../minishell.h"
 
 typedef int	t_builtin (int argc, char **args);
 

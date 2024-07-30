@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include <sys/wait.h>
-#include <execute/execute.h>
-#include <signals/signals.h>
-#include <builtins/builtins.h>
+#include "execute.h"
+#include "../signals/signals.h"
+#include "../builtins/builtins.h"
 
 int	execute_bin_pipe(t_command *command)
 {

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <execute/execute.h>
-#include <builtins/builtins.h>
+#include "execute.h"
+#include "../builtins/builtins.h"
 
 void	free_redirections(t_redirection *redirection)
 {

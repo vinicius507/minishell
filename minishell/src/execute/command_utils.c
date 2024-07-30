@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <execute/execute.h>
+#include "execute.h"
 
 int	command_redirects_stdout(t_command *command)
 {

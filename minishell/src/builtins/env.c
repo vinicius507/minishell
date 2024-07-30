@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <env/env.h>
-#include <builtins/builtins.h>
+#include "../env/env.h"
+#include "builtins.h"
 
 int	env(int argc, char **args)
 {
